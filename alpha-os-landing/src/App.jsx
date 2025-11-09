@@ -282,6 +282,36 @@ function App() {
         </div>
       </section>
 
+      {/* Partners Section */}
+      <section className="partners-section">
+        <h2 className="section-title">Trusted Partners</h2>
+        <p className="section-subtitle">
+          Partnering with industry leaders to bring you the best trading experience.
+        </p>
+
+        <div className="partners-grid">
+          <div className="partner-card">
+            <div className="partner-logo">Drift</div>
+            <p className="partner-description">Leading decentralized perpetuals exchange on Solana</p>
+          </div>
+
+          <div className="partner-card">
+            <div className="partner-logo">Pyth Network</div>
+            <p className="partner-description">Real-time oracle price feeds</p>
+          </div>
+
+          <div className="partner-card">
+            <div className="partner-logo">Telegram</div>
+            <p className="partner-description">Seamless bot integration platform</p>
+          </div>
+
+          <div className="partner-card">
+            <div className="partner-logo">Solana</div>
+            <p className="partner-description">High-performance blockchain infrastructure</p>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA Section */}
       <section className="final-cta">
         <h2 className="section-title">Start Trading in 30 Seconds.</h2>

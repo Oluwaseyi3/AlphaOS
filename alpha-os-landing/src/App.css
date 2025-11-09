@@ -925,6 +925,53 @@ body {
   line-height: 1.6;
 }
 
+/* Partners Section */
+.partners-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 168, 255, 0.02) 50%, transparent 100%);
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.partner-card {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.partner-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 168, 255, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 168, 255, 0.15);
+}
+
+.partner-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #00a8ff 0%, #0077cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.partner-description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
 /* Final CTA */
 .final-cta {
   max-width: 800px;
@@ -952,6 +999,10 @@ body {
   .pnl-cards,
   .pricing-grid {
     grid-template-columns: 1fr;
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .hero-title {
@@ -982,5 +1033,9 @@ body {
 
   .phone-mockup {
     max-width: 100%;
+  }
+
+  .partners-grid {
+    grid-template-columns: 1fr;
   }
 }
