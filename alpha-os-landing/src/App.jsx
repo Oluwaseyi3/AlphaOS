@@ -35,10 +35,11 @@ function App() {
       {/* Hero Section */}
       <section className="hero">
         <h1 className="hero-title">
-          The Future of Prediction Markets. In Your Pocket.
+          Your Alpha Engine for Prediction Markets.
         </h1>
         <p className="hero-subtitle">
-          Trade on sports, politics, and crypto instantly. No apps. No hidden fees. Just alpha.
+          Real-time on-chain signals, instant whale alerts, and lightning-fast execution.
+          Not just another betting platform—AlphaOs gives you the edge before the crowd moves.
         </p>
         <button className="cta-button">Start Trading on Telegram</button>
 
