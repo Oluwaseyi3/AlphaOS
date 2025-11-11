@@ -106,6 +106,10 @@ body {
   margin-right: auto;
 }
 
+a {
+  text-decoration: none;
+}
+
 .cta-button {
   background: linear-gradient(135deg, #00a8ff 0%, #0077cc 100%);
   color: white;
@@ -1043,9 +1047,15 @@ body {
 
 .partners-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   margin-top: 3rem;
+}
+
+@media (max-width: 1200px) {
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .partner-card {
