@@ -29,8 +29,8 @@ function App() {
       {/* Header */}
       <header className="header">
         <div className="logo-container">
-          <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762867967/PredictBot_-_PBOT_CoinLogo_1_abj84q.png" alt="PredictBot" className="logo-image" />
-          <div className="logo">PredictBot</div>
+          <img src="./src/assets/second.png" alt="PredictBot" className="logo-image" />
+        
         </div>
         <div className="tagline">Prediction Markets. Powered by PNP Protocol.</div>
       </header>
