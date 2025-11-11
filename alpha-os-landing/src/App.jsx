@@ -29,7 +29,7 @@ function App() {
       {/* Header */}
       <header className="header">
         <div className="logo-container">
-          <img src="./src/assets/second.png" alt="PredictBot" className="logo-image" />
+          <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762882667/PredictBot_-_WhiteText_transparent_lkn8a0.png" alt="PredictBot" className="logo-image" />
         
         </div>
         <div className="tagline">Prediction Markets. Powered by TokenOs.</div>
