@@ -32,7 +32,7 @@ function App() {
           <img src="./src/assets/second.png" alt="PredictBot" className="logo-image" />
         
         </div>
-        <div className="tagline">Prediction Markets. Powered by PNP Protocol.</div>
+        <div className="tagline">Prediction Markets. Powered by TokenOs.</div>
       </header>
 
       {/* Hero Section */}
