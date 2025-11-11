@@ -9,12 +9,12 @@ function App() {
 
   const messages = [
     { type: 'user', text: 'hi' },
-    { type: 'bot', text: 'Welcome to AlphaOs. What would you like to trade?' },
-    { type: 'category', text: 'Choose a category: eSports • Crypto • Politics' },
-    { type: 'selection', text: 'eSports' },
-    { type: 'market', text: 'CS:GO - Navi vs G2. YES @\n$85 • NO @ 2.10' },
-    { type: 'bet', text: 'Bid YES' },
-    { type: 'confirmation', text: 'Bet Placed • 25 USDT on YES @ $85' }
+    { type: 'bot', text: 'Welcome to PredictBot. Browse 503+ live markets!' },
+    { type: 'category', text: 'Choose a category: Politics • Crypto • Sports • Tech' },
+    { type: 'selection', text: 'Crypto' },
+    { type: 'market', text: 'Will SOL hit $400 in 2025?\nYES @ $0.68 • NO @ $0.32' },
+    { type: 'bet', text: 'Trade YES - $25' },
+    { type: 'confirmation', text: 'Position Opened • $25 on YES @ $0.68' }
   ]
 
   useEffect(() => {
@@ -28,18 +28,24 @@ function App() {
     <div className="app">
       {/* Header */}
       <header className="header">
-        <div className="logo">AlphaOs</div>
-        <div className="tagline">The Operating System for Alpha</div>
+        <div className="logo-container">
+          <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762867967/PredictBot_-_PBOT_CoinLogo_1_abj84q.png" alt="PredictBot" className="logo-image" />
+          <div className="logo">PredictBot</div>
+        </div>
+        <div className="tagline">Prediction Markets. Powered by PNP Protocol.</div>
       </header>
 
       {/* Hero Section */}
       <section className="hero">
+        <div className="built-on-badge">
+          <span className="solana-badge">Built on Solana</span>
+        </div>
         <h1 className="hero-title">
-          Your Alpha Engine for Prediction Markets.
+          Prediction Markets. In Your Pocket.
         </h1>
         <p className="hero-subtitle">
-          Real-time on-chain signals, instant whale alerts, and lightning-fast execution.
-          Not just another betting platform—AlphaOs gives you the edge before the crowd moves.
+          A fully-featured Telegram bot that brings the power of PNP Protocol prediction markets to your fingertips.
+          Trade on real-world events, track positions, and get instant alerts when smart money moves—all without leaving Telegram.
         </p>
         <button className="cta-button">Start Trading on Telegram</button>
 
@@ -65,7 +71,7 @@ function App() {
                 <ChevronLeft className="back-icon" />
                 <div className="bot-info">
                   <div className="bot-avatar"></div>
-                  <span className="bot-name">AlphaOs Bot</span>
+                  <span className="bot-name">PredictBot</span>
                 </div>
                 <div className="header-spacer"></div>
               </div>
@@ -115,9 +121,9 @@ function App() {
 
       {/* We Watch the Noise Section */}
       <section className="noise-section">
-        <h2 className="section-title">We Watch the Noise. You Get the Signal.</h2>
+        <h2 className="section-title">Alpha Engine - Real-Time Market Intelligence</h2>
         <p className="section-subtitle">
-          Our "Alpha Engine" parses millions of on-chain events in real-time. When a whale moves, you're the first to know.
+          Our Alpha Engine parses millions of on-chain events in real-time. Never miss a big move—whale alerts, swarm detection, and price swings delivered instantly to Telegram.
         </p>
 
         <div className="noise-grid">
@@ -161,28 +167,35 @@ function App() {
           </div>
 
           <div className="noise-column">
-            <h3 className="column-header">Your AlphaOs Alerts</h3>
+            <h3 className="column-header">Your PredictBot Alerts</h3>
             <div className="column-label">Real-time</div>
             <div className="alerts-list">
               <div className="alert-item">
+                <TrendingUp className="alert-icon" />
+                <div className="alert-content">
+                  <div className="alert-title">LARGE WHALE</div>
+                  <div className="alert-text">$1,500 "YES" bet on SOL &gt; $400 market</div>
+                </div>
+              </div>
+              <div className="alert-item">
                 <AlertCircle className="alert-icon" />
                 <div className="alert-content">
-                  <div className="alert-title">OMEN</div>
-                  <div className="alert-text">Trader="07" market just moved +18%...</div>
+                  <div className="alert-title">SWARM DETECTED</div>
+                  <div className="alert-text">23 traders betting YES in 60 seconds</div>
                 </div>
               </div>
               <div className="alert-item">
                 <Bell className="alert-icon" />
                 <div className="alert-content">
-                  <div className="alert-title">New MKT</div>
-                  <div className="alert-text">"Will $AVI hit $5?" is now live.</div>
+                  <div className="alert-title">NEW MARKET</div>
+                  <div className="alert-text">"Will Trump win 2024?" just launched</div>
                 </div>
               </div>
               <div className="alert-item">
                 <TrendingUp className="alert-icon" />
                 <div className="alert-content">
-                  <div className="alert-title">WHALE ALERT</div>
-                  <div className="alert-text">$100,000 "YES" bet just placed on the SOL &gt; $400 market.</div>
+                  <div className="alert-title">PRICE SWING</div>
+                  <div className="alert-text">BTC $100k market moved +18% in 5 min</div>
                 </div>
               </div>
             </div>
@@ -190,11 +203,11 @@ function App() {
         </div>
       </section>
 
-      {/* Alpha Engine Section */}
+      {/* Core Features Section */}
       <section className="engine-section">
-        <h2 className="section-title">Your New Alpha Engine. Built-in.</h2>
+        <h2 className="section-title">Everything You Need. In Telegram.</h2>
         <p className="section-subtitle">
-          Signals that move fast markets—delivered where you already are.
+          Trade 503+ markets, manage positions, and create your own prediction markets—all from your pocket.
         </p>
 
         <div className="features-grid">
@@ -205,18 +218,18 @@ function App() {
             <h3 className="feature-title">Whale Alerts</h3>
             <div className="feature-badge">Live</div>
             <p className="feature-description">
-              Track large on-chain flows and high-stakes bets as they happen. Get the jump on momentum.
+              $100+ Small Whale - $500+ Medium Whale - $1,000+ Large Whale. Track big money moves in real-time.
             </p>
           </div>
 
           <div className="feature-card">
             <div className="feature-icon-wrapper">
-              <Zap size={48} className="feature-icon-svg" />
+              <AlertCircle size={48} className="feature-icon-svg" />
             </div>
-            <h3 className="feature-title">Odds Shift Alerts</h3>
+            <h3 className="feature-title">Swarm Detection</h3>
             <div className="feature-badge">Real-time</div>
             <p className="feature-description">
-              Be first to know when probabilities move. Enter or hedge before the crowd.
+              20+ traders betting the same direction in 60 seconds? Crowd sentiment and momentum tracking at your fingertips.
             </p>
           </div>
 
@@ -224,10 +237,43 @@ function App() {
             <div className="feature-icon-wrapper">
               <Bell size={48} className="feature-icon-svg" />
             </div>
-            <h3 className="feature-title">New Market Alerts</h3>
+            <h3 className="feature-title">New Market Discovery</h3>
             <div className="feature-badge">Fresh</div>
             <p className="feature-description">
-              Fresh markets across crypto, eSports, and politics—straight to your Telegram.
+              Be first to trade on trending topics. Instant alerts for fresh prediction markets across politics, crypto, sports, and tech.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon-wrapper">
+              <Zap size={48} className="feature-icon-svg" />
+            </div>
+            <h3 className="feature-title">Price Swing Alerts</h3>
+            <div className="feature-badge">15%+</div>
+            <p className="feature-description">
+              Know when market sentiment shifts dramatically. 15%+ price movements detected and delivered instantly.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon-wrapper">
+              <TrendingUp size={48} className="feature-icon-svg" />
+            </div>
+            <h3 className="feature-title">Portfolio Management</h3>
+            <div className="feature-badge">One-Click</div>
+            <p className="feature-description">
+              Track all positions, see active YES/NO bets, exit positions instantly, and review automatic PnL calculations.
+            </p>
+          </div>
+
+          <div className="feature-card">
+            <div className="feature-icon-wrapper">
+              <Send size={48} className="feature-icon-svg" />
+            </div>
+            <h3 className="feature-title">Market Creation</h3>
+            <div className="feature-badge">60 sec</div>
+            <p className="feature-description">
+              Launch custom prediction markets in 60 seconds. Choose USDC or SOL, set liquidity ($1-$10k), earn creator fees.
             </p>
           </div>
         </div>
@@ -235,9 +281,9 @@ function App() {
 
       {/* PnL Cards Section */}
       <section className="pnl-section">
-        <h2 className="section-title">Track Your PnL. Share Your Memes.</h2>
+        <h2 className="section-title">Track Your PnL. Share Your Wins.</h2>
         <p className="section-subtitle">
-          Clean profit cards when you win, meme-ready losses when you don't.
+          Beautiful, branded PnL cards for every trade. Perfect for sharing on Twitter, Discord, and Telegram.
         </p>
 
         <div className="pnl-cards">
@@ -246,7 +292,7 @@ function App() {
               <img src={profitImage} alt="Profit Meme" className="pnl-image" />
             </div>
             <div className="pnl-amount">+$152.50 (+85%)</div>
-            <div className="pnl-caption">Dynamically-generated profit cards when you win.</div>
+            <div className="pnl-caption">Professional profit cards with PredictBot branding. Share your wins anywhere.</div>
           </div>
 
           <div className="pnl-card loss">
@@ -254,30 +300,56 @@ function App() {
               <img src={lossImage} alt="Loss Meme" className="pnl-image" />
             </div>
             <div className="pnl-amount loss-amount">-$75.00 (-50%)</div>
-            <div className="pnl-caption">And meme-ready loss cards. Because it happens.</div>
+            <div className="pnl-caption">Meme-ready loss cards. Perfect for social sharing (16:9 ratio).</div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Security Section */}
       <section className="pricing-section">
-        <h2 className="section-title">Radically Transparent. Verifiably Cheaper.</h2>
+        <h2 className="section-title">Bank-Level Security. Non-Custodial.</h2>
         <p className="section-subtitle">
-          No hidden markups. Clear pricing. On-chain proofs.
+          Your keys, your funds. Military-grade encryption with full control.
         </p>
 
         <div className="pricing-grid">
           <div className="pricing-card">
-            <h3 className="pricing-title">Zero Added Fees. Ever.</h3>
+            <h3 className="pricing-title">Encrypted Wallets</h3>
             <p className="pricing-description">
-              We never add hidden spreads or take secret cuts. What you see is what you pay.
+              HashiCorp Vault AES-256-GCM encryption. Your private keys are fully encrypted and secure.
             </p>
           </div>
 
           <div className="pricing-card">
-            <h3 className="pricing-title">5% Cheaper. Guaranteed.</h3>
+            <h3 className="pricing-title">Lightning-Fast Performance</h3>
             <p className="pricing-description">
-              Our routing and rebates keep execution costs at least 5% lower than alternatives.
+              Redis caching and PostgreSQL database. Reliable position tracking with sub-second response times.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* PBOT Revenue Share Section */}
+      <section className="pbot-section">
+        <h2 className="section-title">Hold $PBOT. Earn Real Revenue.</h2>
+        <p className="section-subtitle">
+          $PBOT token holders receive a direct share of PredictBot's revenue streams. No staking required.
+        </p>
+
+        <div className="pbot-grid">
+          <div className="pbot-card">
+            <div className="pbot-percentage">50%</div>
+            <h3 className="pbot-title">Platform Revenues</h3>
+            <p className="pbot-description">
+              Half of all PredictBot platform revenues distributed directly to $PBOT holders.
+            </p>
+          </div>
+
+          <div className="pbot-card">
+            <div className="pbot-percentage">30%</div>
+            <h3 className="pbot-title">Creator Fees</h3>
+            <p className="pbot-description">
+              30% of all creator fees from custom prediction markets goes to $PBOT token holders.
             </p>
           </div>
         </div>
@@ -285,15 +357,15 @@ function App() {
 
       {/* Partners Section */}
       <section className="partners-section">
-        <h2 className="section-title">Trusted Partners</h2>
+        <h2 className="section-title">Powered By</h2>
         <p className="section-subtitle">
-          Partnering with industry leaders to bring you the best trading experience.
+          Built on industry-leading infrastructure and protocols.
         </p>
 
         <div className="partners-grid">
           <div className="partner-card">
-            <div className="partner-logo">Drift</div>
-            <p className="partner-description">Leading decentralized perpetuals exchange on Solana</p>
+            <div className="partner-logo">PNP Protocol</div>
+            <p className="partner-description">Decentralized prediction markets infrastructure</p>
           </div>
 
           <div className="partner-card">
@@ -317,14 +389,14 @@ function App() {
       <section className="final-cta">
         <h2 className="section-title">Start Trading in 30 Seconds.</h2>
         <p className="section-subtitle">
-          No sign-ups. No credit cards. No complex apps. Just your Telegram.
+          No sign-ups. No credit cards. No complex apps. Just your Telegram. 503+ markets waiting.
         </p>
-        <button className="cta-button">Launch AlphaOs</button>
+        <button className="cta-button">Launch PredictBot</button>
       </section>
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2025 AlphaOs.  All rights reserved.</p>
+        <p>© 2025 PredictBot. Powered by TokenOs. Built on Solana.</p>
       </footer>
     </div>
   )
