@@ -44,7 +44,7 @@ function App() {
           Prediction Markets. In Your Pocket.
         </h1>
         <p className="hero-subtitle">
-          A fully-featured Telegram bot that brings the power of PNP Protocol prediction markets to your fingertips.
+          A fully-featured Telegram bot that brings the power of Prediction markets to your fingertips.
           Trade on real-world events, track positions, and get instant alerts when smart money moves—all without leaving Telegram.
         </p>
         <button className="cta-button">Start Trading on Telegram</button>
