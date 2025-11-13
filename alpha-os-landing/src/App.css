@@ -121,6 +121,18 @@ body {
   font-weight: 400;
 }
 
+.tokenos-link {
+  color: #00a8ff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.tokenos-link:hover {
+  color: #0077cc;
+  border-bottom-color: #0077cc;
+}
+
 /* Hero Section */
 .hero {
   max-width: 1200px;
@@ -1126,6 +1138,11 @@ a {
   }
 }
 
+.partner-card-link {
+  text-decoration: none;
+  display: block;
+}
+
 .partner-card {
   background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1156,6 +1173,48 @@ a {
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.6);
   line-height: 1.5;
+}
+
+/* FAQ Section */
+.faq-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 6rem 2rem;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.faq-item {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: rgba(0, 168, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 168, 255, 0.1);
+}
+
+.faq-question {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.faq-answer {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* Final CTA */
