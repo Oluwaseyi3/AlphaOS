@@ -63,7 +63,7 @@ function App() {
           A fully-featured Telegram bot that brings the power of Prediction markets to your fingertips.
           Trade on real-world events, track positions, and get instant alerts when smart money moves—all without leaving Telegram.
         </p>
-        <a href="https://t.me/alphadingobot" target="_blank" rel="noopener noreferrer">
+        <a href="https://t.me/Predict_Sol_Bot" target="_blank" rel="noopener noreferrer">
           <button className="cta-button">Start Trading on Telegram</button>
         </a>
 
@@ -414,7 +414,7 @@ function App() {
         <p className="section-subtitle">
           No sign-ups. No credit cards. No complex apps. Just your Telegram. 503+ markets waiting.
         </p>
-        <a href="https://t.me/alphadingobot" target="_blank" rel="noopener noreferrer">
+        <a href="https://t.me/Predict_Sol_Bot" target="_blank" rel="noopener noreferrer">
           <button className="cta-button">Launch PredictBot</button>
         </a>
       </section>
