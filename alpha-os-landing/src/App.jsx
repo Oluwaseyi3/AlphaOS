@@ -333,25 +333,25 @@ function App() {
 
       {/* PBOT Revenue Share Section */}
       <section className="pbot-section">
-        <h2 className="section-title">Hold $PBOT. Earn Real Revenue.</h2>
+        <h2 className="section-title">Stake $PBOT. Earn Real Revenue.</h2>
         <p className="section-subtitle">
-          $PBOT token holders receive a direct share of PredictBot's revenue streams. No staking required.
+          $PBOT stakers receive a direct share of PredictBot's revenue streams. Passive income from platform growth.
         </p>
 
         <div className="pbot-grid">
           <div className="pbot-card">
-            <div className="pbot-percentage">50%</div>
-            <h3 className="pbot-title">Platform Revenues</h3>
+            <div className="pbot-percentage">60%</div>
+            <h3 className="pbot-title">Commissions & Revenue</h3>
             <p className="pbot-description">
-              Half of all PredictBot platform revenues distributed directly to $PBOT holders.
+              60% of all platform commissions and revenue distributed directly to $PBOT stakers.
             </p>
           </div>
 
           <div className="pbot-card">
-            <div className="pbot-percentage">30%</div>
+            <div className="pbot-percentage">10%</div>
             <h3 className="pbot-title">Creator Fees</h3>
             <p className="pbot-description">
-              30% of all creator fees from custom prediction markets goes to $PBOT token holders.
+              10% of all creator fees from custom prediction markets goes to $PBOT stakers.
             </p>
           </div>
         </div>
