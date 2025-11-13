@@ -27,19 +27,26 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  margin-bottom: 0.75rem;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
-  margin-bottom: 0.75rem;
 }
 
 .logo-image {
   width: 206px;
   height: 70px;
   border-radius: 12px;
-
 }
 
 .logo {
@@ -50,6 +57,62 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(0, 168, 255, 0.5);
+  color: #00a8ff;
+  transform: translateY(-2px);
+}
+
+.buy-pbot-link {
+  text-decoration: none;
+}
+
+.buy-pbot-button {
+  background: linear-gradient(135deg, #8774e1 0%, #6c5dd3 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(135, 116, 225, 0.3);
+  white-space: nowrap;
+}
+
+.buy-pbot-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 30px rgba(135, 116, 225, 0.4);
 }
 
 .tagline {
@@ -1161,5 +1224,37 @@ a {
 
   .partners-grid {
     grid-template-columns: 1fr;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .social-links {
+    order: 2;
+  }
+
+  .buy-pbot-link {
+    order: 1;
+    width: 100%;
+  }
+
+  .buy-pbot-button {
+    width: 100%;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .logo-image {
+    width: 150px;
+    height: 51px;
   }
 }
