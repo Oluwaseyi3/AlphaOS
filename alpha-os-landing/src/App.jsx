@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Send, TrendingUp, AlertCircle, Bell, Zap, ChevronLeft, MessageCircle } from 'lucide-react'
+import { Send, TrendingUp, AlertCircle, Bell, Zap, ChevronLeft, MessageCircle, ChevronDown } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import './App.css'
 import profitImage from './assets/GreenMeme.png'
 import lossImage from './assets/Gemini_Generated_Image_wltnkbwltnkbwltn.png'
 
 function App() {
   const [currentMessage, setCurrentMessage] = useState(0)
+  const [openFaqIndex, setOpenFaqIndex] = useState(null)
 
   const messages = [
     { type: 'user', text: 'hi' },
@@ -30,9 +32,15 @@ function App() {
       <header className="header">
         <div className="header-content">
           <div className="logo-container">
-            <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762882667/PredictBot_-_WhiteText_transparent_lkn8a0.png" alt="PredictBot" className="logo-image" />
+            <Link to="/">
+              <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762882667/PredictBot_-_WhiteText_transparent_lkn8a0.png" alt="PredictBot" className="logo-image" />
+            </Link>
           </div>
           <div className="header-actions">
+            <nav className="nav-links">
+              <Link to="/" className="nav-link active">Home</Link>
+              <Link to="/docs" className="nav-link">Docs</Link>
+            </nav>
             <div className="social-links">
               <a href="https://t.me/PredictBotSol" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="Telegram">
                 <MessageCircle size={20} />
@@ -410,88 +418,6 @@ function App() {
         </div>
       </section>
 
-      {/* Documentation Section */}
-      <section className="docs-section">
-        <h2 className="section-title">Documentation</h2>
-        <p className="section-subtitle">
-          Learn how to use PredictBot and maximize your trading potential
-        </p>
-
-        <div className="docs-grid">
-          <div className="doc-card">
-            <div className="doc-icon">📖</div>
-            <h3 className="doc-title">Getting Started</h3>
-            <p className="doc-description">
-              New to PredictBot? Start here to create your wallet, fund it, and place your first prediction in under 60 seconds.
-            </p>
-            <a href="#" className="doc-link">Read Guide →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">📊</div>
-            <h3 className="doc-title">Trading Guide</h3>
-            <p className="doc-description">
-              Master the art of prediction markets. Learn how to browse markets, analyze odds, and execute winning trades.
-            </p>
-            <a href="#" className="doc-link">Learn More →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">🎯</div>
-            <h3 className="doc-title">Market Creation</h3>
-            <p className="doc-description">
-              Create your own prediction markets in 60 seconds. Set up liquidity, choose collateral, and earn creator fees.
-            </p>
-            <a href="#" className="doc-link">View Tutorial →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">🔔</div>
-            <h3 className="doc-title">Alpha Engine</h3>
-            <p className="doc-description">
-              Configure whale alerts, swarm detection, and price swing notifications to stay ahead of market movements.
-            </p>
-            <a href="#" className="doc-link">Setup Alerts →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">💼</div>
-            <h3 className="doc-title">Portfolio Management</h3>
-            <p className="doc-description">
-              Track positions, calculate P&L, close trades, and claim winnings. Complete guide to managing your portfolio.
-            </p>
-            <a href="#" className="doc-link">Manage Portfolio →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">💰</div>
-            <h3 className="doc-title">$PBOT Staking</h3>
-            <p className="doc-description">
-              Stake $PBOT tokens to earn 60% of platform revenue and 10% of creator fees. Passive income from platform growth.
-            </p>
-            <a href="#" className="doc-link">Start Earning →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">🔐</div>
-            <h3 className="doc-title">Security & Privacy</h3>
-            <p className="doc-description">
-              Understand wallet encryption, private key management, and best practices to keep your funds secure.
-            </p>
-            <a href="#" className="doc-link">Security Guide →</a>
-          </div>
-
-          <div className="doc-card">
-            <div className="doc-icon">💼</div>
-            <h3 className="doc-title">Investors</h3>
-            <p className="doc-description">
-              Interested in partnering or investing in PredictBot? Reach out to discuss opportunities and platform growth.
-            </p>
-            <a href="mailto:investors@predictbot.net" className="doc-link">Contact Us →</a>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ Section */}
       <section className="faq-section">
         <h2 className="section-title">Frequently Asked Questions</h2>
@@ -500,75 +426,58 @@ function App() {
         </p>
 
         <div className="faq-container">
-          <div className="faq-item">
-            <h3 className="faq-question">What is PredictBot?</h3>
-            <p className="faq-answer">
-              PredictBot is a fully-featured Telegram bot that brings PNP Protocol prediction markets to your fingertips. Trade on real-world events across politics, crypto, sports, and tech—all without leaving Telegram.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">How do I start trading?</h3>
-            <p className="faq-answer">
-              Simply open the bot on Telegram, browse 503+ live markets, choose YES or NO, and place your trade. It takes less than 30 seconds. No sign-ups, no credit cards, no complex apps required.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">What is the Alpha Engine?</h3>
-            <p className="faq-answer">
-              Our Alpha Engine is a real-time market intelligence system that monitors millions of on-chain events. It sends you instant alerts for whale trades ($100+), swarm activity (20+ traders moving together), new markets, and 15%+ price swings—giving you the edge before the crowd moves.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">Is my wallet secure?</h3>
-            <p className="faq-answer">
-              Absolutely. PredictBot uses HashiCorp Vault with AES-256-GCM encryption for all wallets. Your private keys are fully encrypted and you maintain complete control. It's non-custodial—we never have access to your funds.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">Can I create my own markets?</h3>
-            <p className="faq-answer">
-              Yes! Launch custom prediction markets in 60 seconds. Choose USDC or SOL as collateral, set initial liquidity ($1-$10,000), customize duration (7-90 days), and earn creator fees when others trade your market.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">What is $PBOT and how do I earn?</h3>
-            <p className="faq-answer">
-              $PBOT is the protocol token. Stake your $PBOT to earn 60% of all platform commissions and revenue, plus 10% of creator fees. It's passive income from platform growth—no active trading required.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">What markets can I trade?</h3>
-            <p className="faq-answer">
-              Browse 503+ live markets across politics (elections, policy decisions), crypto (price predictions, token launches), sports (game outcomes, championships), and tech (product releases, company milestones). New markets added daily.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">How do I track my positions?</h3>
-            <p className="faq-answer">
-              View all active positions directly in Telegram with one click. See your YES/NO bets, current PnL, and exit positions instantly. Plus, get beautiful shareable PnL cards for Twitter, Discord, and Telegram.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">Where does the liquidity come from?</h3>
-            <p className="faq-answer">
-              Markets on PredictBot have liquidity from two sources: (1) Market creators who provide initial liquidity when launching a market, and (2) Other traders who add liquidity by placing opposing bets. All markets are powered by PNP Protocol's decentralized prediction market infrastructure on Solana.
-            </p>
-          </div>
-
-          <div className="faq-item">
-            <h3 className="faq-question">What protocols does PredictBot support?</h3>
-            <p className="faq-answer">
-              PredictBot is currently built on PNP Protocol (Parimutuel Network Protocol) on Solana. We have plans to expand to BetDex (Monaco Protocol) in the near future, giving you access to even more prediction markets and deeper liquidity across multiple protocols.
-            </p>
-          </div>
+          {[
+            {
+              question: 'What is PredictBot?',
+              answer: 'PredictBot is a fully-featured Telegram bot that brings PNP Protocol prediction markets to your fingertips. Trade on real-world events across politics, crypto, sports, and tech—all without leaving Telegram.'
+            },
+            {
+              question: 'How do I start trading?',
+              answer: 'Simply open the bot on Telegram, browse 503+ live markets, choose YES or NO, and place your trade. It takes less than 30 seconds. No sign-ups, no credit cards, no complex apps required.'
+            },
+            {
+              question: 'What is the Alpha Engine?',
+              answer: 'Our Alpha Engine is a real-time market intelligence system that monitors millions of on-chain events. It sends you instant alerts for whale trades ($100+), swarm activity (20+ traders moving together), new markets, and 15%+ price swings—giving you the edge before the crowd moves.'
+            },
+            {
+              question: 'Is my wallet secure?',
+              answer: 'Absolutely. PredictBot uses HashiCorp Vault with AES-256-GCM encryption for all wallets. Your private keys are fully encrypted and you maintain complete control. It\'s non-custodial—we never have access to your funds.'
+            },
+            {
+              question: 'Can I create my own markets?',
+              answer: 'Yes! Launch custom prediction markets in 60 seconds. Choose USDC or SOL as collateral, set initial liquidity ($1-$10,000), customize duration (7-90 days), and earn creator fees when others trade your market.'
+            },
+            {
+              question: 'What is $PBOT and how do I earn?',
+              answer: '$PBOT is the protocol token. Stake your $PBOT to earn 60% of all platform commissions and revenue, plus 10% of creator fees. It\'s passive income from platform growth—no active trading required.'
+            },
+            {
+              question: 'What markets can I trade?',
+              answer: 'Browse 503+ live markets across politics (elections, policy decisions), crypto (price predictions, token launches), sports (game outcomes, championships), and tech (product releases, company milestones). New markets added daily.'
+            },
+            {
+              question: 'How do I track my positions?',
+              answer: 'View all active positions directly in Telegram with one click. See your YES/NO bets, current PnL, and exit positions instantly. Plus, get beautiful shareable PnL cards for Twitter, Discord, and Telegram.'
+            },
+            {
+              question: 'Where does the liquidity come from?',
+              answer: 'Markets on PredictBot have liquidity from two sources: (1) Market creators who provide initial liquidity when launching a market, and (2) Other traders who add liquidity by placing opposing bets. All markets are powered by PNP Protocol\'s decentralized prediction market infrastructure on Solana.'
+            },
+            {
+              question: 'What protocols does PredictBot support?',
+              answer: 'PredictBot is currently built on PNP Protocol (Parimutuel Network Protocol) on Solana. We have plans to expand to BetDex (Monaco Protocol) in the near future, giving you access to even more prediction markets and deeper liquidity across multiple protocols.'
+            }
+          ].map((faq, index) => (
+            <div key={index} className="faq-item" onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}>
+              <div className="faq-question-wrapper">
+                <h3 className="faq-question">{faq.question}</h3>
+                <ChevronDown className={`faq-chevron ${openFaqIndex === index ? 'open' : ''}`} size={20} />
+              </div>
+              {openFaqIndex === index && (
+                <p className="faq-answer">{faq.answer}</p>
+              )}
+            </div>
+          ))}
         </div>
       </section>
 
