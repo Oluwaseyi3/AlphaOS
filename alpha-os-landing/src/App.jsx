@@ -32,7 +32,7 @@ function App() {
           <img src="https://res.cloudinary.com/seyi-codes/image/upload/v1762882667/PredictBot_-_WhiteText_transparent_lkn8a0.png" alt="PredictBot" className="logo-image" />
         
         </div>
-        <div className="tagline">Prediction Markets. Powered by TokenOs.</div>
+        <div className="tagline">Prediction Markets. Powered by TokenOS.</div>
       </header>
 
       {/* Hero Section */}
@@ -371,7 +371,7 @@ function App() {
           </div>
 
           <div className="partner-card">
-            <div className="partner-logo">TokenOs</div>
+            <div className="partner-logo">TokenOS</div>
             <p className="partner-description">Token operations and management platform</p>
           </div>
 
@@ -405,7 +405,7 @@ function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <p>© 2025 PredictBot. Powered by TokenOs. Built on Solana.</p>
+        <p>© 2025 PredictBot. Powered by TokenOS. Built on Solana.</p>
       </footer>
     </div>
   )
