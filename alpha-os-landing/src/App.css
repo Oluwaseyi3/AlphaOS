@@ -169,6 +169,88 @@ body {
   border-radius: 2px;
 }
 
+/* Token Info Section */
+.token-info {
+  margin-top: 3rem;
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(145deg, rgba(135, 116, 225, 0.1) 0%, rgba(108, 93, 211, 0.05) 100%);
+  border: 1px solid rgba(135, 116, 225, 0.2);
+  border-radius: 16px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.token-ca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.token-label {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #8774e1;
+}
+
+.token-address {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Courier New', monospace;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.token-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.token-link {
+  color: #00a8ff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.token-link:hover {
+  color: #0077cc;
+  transform: translateY(-1px);
+}
+
+.token-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.token-link:hover::after {
+  transform: scaleX(1);
+}
+
+.token-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
+}
+
 /* Group Betting Section */
 .group-betting-section {
   background: linear-gradient(180deg, rgba(0, 168, 255, 0.03) 0%, transparent 100%);

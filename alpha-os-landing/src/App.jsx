@@ -143,6 +143,27 @@ function App() {
           </div>
           <div className="phone-home-indicator"></div>
         </div>
+
+        {/* Token Info Section */}
+        <div className="token-info">
+          <div className="token-ca">
+            <span className="token-label">$PBOT CA:</span>
+            <span className="token-address">[COMING SOON]</span>
+          </div>
+          <div className="token-links">
+            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+              DexScreener
+            </a>
+            <span className="token-separator">•</span>
+            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+              DexTools
+            </a>
+            <span className="token-separator">•</span>
+            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+              GMGN
+            </a>
+          </div>
+        </div>
       </section>
 
       {/* Group Betting Feature Highlight */}
