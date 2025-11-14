@@ -49,15 +49,15 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">Getting Started</h3>
             <p className="doc-description">
-              New to PredictBot? Start here to create your wallet, fund it, and place your first prediction in under 60 seconds.
+              Start a private chat with @PredictBot on Telegram. Create your encrypted wallet in seconds. No email, no KYC - just start trading. Your wallet uses military-grade AES-256-GCM encryption and you maintain full control of your private keys.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <h3 className="doc-title">Trading Guide</h3>
+            <h3 className="doc-title">Group Betting</h3>
             <p className="doc-description">
-              Master the art of prediction markets. Learn how to browse markets, analyze odds, and execute winning trades.
+              Add PredictBot to any Telegram group to compete with friends. See real-time bets, track group leaderboards, and compete for the top spot. Auto-posted markets every 5 minutes keep the action flowing. Private info always sent via DM.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
@@ -65,7 +65,7 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">Market Creation</h3>
             <p className="doc-description">
-              Create your own prediction markets in 60 seconds. Set up liquidity, choose collateral, and earn creator fees.
+              Launch custom prediction markets in 60 seconds. Choose USDC or SOL collateral, set liquidity from $1-$10k, customize duration 7-90 days. Earn creator fees when others trade your market. Perfect for group-specific events.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
@@ -73,15 +73,15 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">Alpha Engine</h3>
             <p className="doc-description">
-              Configure whale alerts, swarm detection, and price swing notifications to stay ahead of market movements.
+              Real-time alerts for whale trades ($100+), swarm activity (20+ traders), new markets, and 15%+ price swings. Configure your alert preferences to stay ahead of market movements and never miss a big move.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <h3 className="doc-title">Portfolio Management</h3>
+            <h3 className="doc-title">Leaderboards & Stats</h3>
             <p className="doc-description">
-              Track positions, calculate P&L, close trades, and claim winnings. Complete guide to managing your portfolio.
+              Compete on group leaderboards with daily, weekly, and monthly rankings. Track win rates, P&L, biggest wins, and achievements. Unlock rewards for streaks, milestones, and challenge victories. See who's the best predictor.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
@@ -89,7 +89,7 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">$PBOT Staking</h3>
             <p className="doc-description">
-              Stake $PBOT tokens to earn 60% of platform revenue and 10% of creator fees. Passive income from platform growth.
+              Stake $PBOT tokens to earn 60% of all platform commissions and revenue, plus 10% of creator fees. Passive income distributed automatically. Track your staking rewards and compound your earnings over time.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>
@@ -97,7 +97,7 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">Security & Privacy</h3>
             <p className="doc-description">
-              Understand wallet encryption, private key management, and best practices to keep your funds secure.
+              HashiCorp Vault AES-256-GCM encryption. Non-custodial design means you control your keys. Private info never posted in groups - always sent via DM. Redis caching and PostgreSQL for reliable, fast performance.
             </p>
             <span className="doc-link-disabled">Coming Soon</span>
           </div>

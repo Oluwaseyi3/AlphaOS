@@ -145,6 +145,52 @@ function App() {
         </div>
       </section>
 
+      {/* Group Betting Feature Highlight */}
+      <section className="group-betting-section">
+        <div className="group-betting-content">
+          <h2 className="section-title">Bet Against Your Friends</h2>
+          <p className="section-subtitle">
+            Transform any Telegram group into a competitive prediction market. See who's the best at calling the market.
+          </p>
+
+          <div className="group-features-grid">
+            <div className="group-feature">
+              <h3 className="group-feature-title">Live Group Leaderboards</h3>
+              <p className="group-feature-text">
+                Track rankings, win rates, and P&L for your entire group. Daily, weekly, and monthly leaderboards show who's on top. Compete for bragging rights and climb the ranks with every winning prediction.
+              </p>
+            </div>
+
+            <div className="group-feature">
+              <h3 className="group-feature-title">Public Bets, Private Keys</h3>
+              <p className="group-feature-text">
+                Everyone sees the bets in the group chat. Your wallet, balance, and private keys? Always sent via private DM. Perfect balance of social competition and personal security.
+              </p>
+            </div>
+
+            <div className="group-feature">
+              <h3 className="group-feature-title">Auto-Posted Markets</h3>
+              <p className="group-feature-text">
+                Hot markets automatically posted every 5 minutes. High liquidity, active trading, interesting odds - the bot finds the best opportunities and brings them to your group.
+              </p>
+            </div>
+
+            <div className="group-feature">
+              <h3 className="group-feature-title">Achievements & Streaks</h3>
+              <p className="group-feature-text">
+                Unlock achievements for win streaks, big wins, milestones, and more. Get rewards and bonuses for hitting targets. Everyone in the group sees your accomplishments.
+              </p>
+            </div>
+          </div>
+
+          <div className="group-cta">
+            <a href="https://t.me/Predict_Sol_Bot" target="_blank" rel="noopener noreferrer">
+              <button className="cta-button">Add to Your Group</button>
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* We Watch the Noise Section */}
       <section className="noise-section">
         <h2 className="section-title">Alpha Engine - Real-Time Market Intelligence</h2>

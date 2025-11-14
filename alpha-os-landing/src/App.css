@@ -169,6 +169,59 @@ body {
   border-radius: 2px;
 }
 
+/* Group Betting Section */
+.group-betting-section {
+  background: linear-gradient(180deg, rgba(0, 168, 255, 0.03) 0%, transparent 100%);
+  padding: 6rem 2rem;
+  border-top: 1px solid rgba(0, 168, 255, 0.1);
+}
+
+.group-betting-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.group-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin: 3rem 0;
+  text-align: left;
+}
+
+.group-feature {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(0, 168, 255, 0.15);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.group-feature:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 168, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 168, 255, 0.15);
+}
+
+.group-feature-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #00a8ff;
+}
+
+.group-feature-text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.group-cta {
+  margin-top: 3rem;
+}
+
 /* Hero Section */
 .hero {
   max-width: 1200px;
@@ -1427,7 +1480,8 @@ a {
 
   .pnl-cards,
   .pricing-grid,
-  .pbot-grid {
+  .pbot-grid,
+  .group-features-grid {
     grid-template-columns: 1fr;
   }
 
