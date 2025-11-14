@@ -49,57 +49,50 @@ function Docs() {
           <div className="doc-card">
             <h3 className="doc-title">Getting Started</h3>
             <p className="doc-description">
-              Start a private chat with @PredictBot on Telegram. Create your encrypted wallet in seconds. No email, no KYC - just start trading. Your wallet uses military-grade AES-256-GCM encryption and you maintain full control of your private keys.
+              Open Telegram and start a private chat with @PredictBot. Your wallet is automatically created using AES-256-GCM encryption via HashiCorp Vault. No email or KYC required. Fund your wallet with SOL or USDC through the deposit flow. You maintain complete custody - we never access your private keys. Export your keys anytime via the settings menu. Start trading prediction markets immediately after funding.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">Group Betting</h3>
             <p className="doc-description">
-              Add PredictBot to any Telegram group to compete with friends. See real-time bets, track group leaderboards, and compete for the top spot. Auto-posted markets every 5 minutes keep the action flowing. Private info always sent via DM.
+              Add @PredictBot to any Telegram group via bot settings. All group members can place bets publicly visible to the group. Real-time leaderboards track rankings, win rates, and P&L across daily, weekly, and monthly periods. Markets auto-post every 5 minutes with high liquidity options. Wallet details and balances are always sent via private DM for security. Group admins control notification settings and minimum bet amounts.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">Market Creation</h3>
             <p className="doc-description">
-              Launch custom prediction markets in 60 seconds. Choose USDC or SOL collateral, set liquidity from $1-$10k, customize duration 7-90 days. Earn creator fees when others trade your market. Perfect for group-specific events.
+              Use the /create command to launch custom prediction markets in 60 seconds. Choose USDC or SOL as collateral. Set initial liquidity between $1-$10,000. Configure market duration from 7-90 days. Define clear YES/NO outcomes for resolution. Markets deploy to PNP Protocol on Solana. Earn creator fees from all trades. Perfect for group-specific events, custom challenges, or private competitions.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">Alpha Engine</h3>
             <p className="doc-description">
-              Real-time alerts for whale trades ($100+), swarm activity (20+ traders), new markets, and 15%+ price swings. Configure your alert preferences to stay ahead of market movements and never miss a big move.
+              Real-time market intelligence monitors millions of on-chain events. Whale alerts trigger for trades over $100 (small), $500 (medium), or $1,000 (large). Swarm detection identifies 20+ traders moving in the same direction within 60 seconds. Price swing alerts notify you of 15%+ market movements. New market alerts highlight fresh opportunities across crypto, sports, politics, and tech categories. Configure preferences via bot settings.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">Leaderboards & Stats</h3>
             <p className="doc-description">
-              Compete on group leaderboards with daily, weekly, and monthly rankings. Track win rates, P&L, biggest wins, and achievements. Unlock rewards for streaks, milestones, and challenge victories. See who's the best predictor.
+              Group leaderboards rank members by total P&L over daily, weekly, and monthly periods. Track detailed stats including win rate, total bets, average position size, and biggest wins/losses. Earn achievements for 5-win streaks, 100-bet milestones, and profitable months. Unlock reward bonuses for achievement completion. View category-specific performance across crypto, sports, and other market types. All stats update in real-time as positions resolve.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">$PBOT Staking</h3>
             <p className="doc-description">
-              Stake $PBOT tokens to earn 60% of all platform commissions and revenue, plus 10% of creator fees. Passive income distributed automatically. Track your staking rewards and compound your earnings over time.
+              Stake $PBOT tokens to earn 60% of all platform trading commissions and revenue. Additionally receive 10% of creator fees from custom prediction markets. Rewards distribute automatically to stakers proportional to stake size. No lock-up periods or minimum stake requirements. Unstake anytime with instant withdrawal. Track cumulative rewards and APY in the staking dashboard. Compound earnings by restaking rewards for maximum yield.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
             <h3 className="doc-title">Security & Privacy</h3>
             <p className="doc-description">
-              HashiCorp Vault AES-256-GCM encryption. Non-custodial design means you control your keys. Private info never posted in groups - always sent via DM. Redis caching and PostgreSQL for reliable, fast performance.
+              All wallets encrypted using HashiCorp Vault with AES-256-GCM standard. Fully non-custodial - you control your private keys at all times. Private information including wallet addresses, balances, and transaction history never posted in public groups. All sensitive data sent exclusively via private DM. Redis caching ensures sub-second response times. PostgreSQL database maintains reliable position tracking. Regular security audits by third-party firms.
             </p>
-            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
