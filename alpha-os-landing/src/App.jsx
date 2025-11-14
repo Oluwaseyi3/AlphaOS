@@ -162,9 +162,9 @@ function App() {
             </div>
 
             <div className="group-feature">
-              <h3 className="group-feature-title">Public Bets, Private Keys</h3>
+              <h3 className="group-feature-title">Public Bets</h3>
               <p className="group-feature-text">
-                Everyone sees the bets in the group chat. Your wallet, balance, and private keys? Always sent via private DM. Perfect balance of social competition and personal security.
+                Everyone sees the bets in the group chat. Your wallet and balance Always sent via private DM. Perfect balance of social competition and personal security.
               </p>
             </div>
 
