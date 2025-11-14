@@ -47,70 +47,62 @@ function Docs() {
 
         <div className="docs-grid">
           <div className="doc-card">
-            <div className="doc-icon">📖</div>
             <h3 className="doc-title">Getting Started</h3>
             <p className="doc-description">
               New to PredictBot? Start here to create your wallet, fund it, and place your first prediction in under 60 seconds.
             </p>
-            <a href="#" className="doc-link">Read Guide →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">📊</div>
             <h3 className="doc-title">Trading Guide</h3>
             <p className="doc-description">
               Master the art of prediction markets. Learn how to browse markets, analyze odds, and execute winning trades.
             </p>
-            <a href="#" className="doc-link">Learn More →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">🎯</div>
             <h3 className="doc-title">Market Creation</h3>
             <p className="doc-description">
               Create your own prediction markets in 60 seconds. Set up liquidity, choose collateral, and earn creator fees.
             </p>
-            <a href="#" className="doc-link">View Tutorial →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">🔔</div>
             <h3 className="doc-title">Alpha Engine</h3>
             <p className="doc-description">
               Configure whale alerts, swarm detection, and price swing notifications to stay ahead of market movements.
             </p>
-            <a href="#" className="doc-link">Setup Alerts →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">💼</div>
             <h3 className="doc-title">Portfolio Management</h3>
             <p className="doc-description">
               Track positions, calculate P&L, close trades, and claim winnings. Complete guide to managing your portfolio.
             </p>
-            <a href="#" className="doc-link">Manage Portfolio →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">💰</div>
             <h3 className="doc-title">$PBOT Staking</h3>
             <p className="doc-description">
               Stake $PBOT tokens to earn 60% of platform revenue and 10% of creator fees. Passive income from platform growth.
             </p>
-            <a href="#" className="doc-link">Start Earning →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">🔐</div>
             <h3 className="doc-title">Security & Privacy</h3>
             <p className="doc-description">
               Understand wallet encryption, private key management, and best practices to keep your funds secure.
             </p>
-            <a href="#" className="doc-link">Security Guide →</a>
+            <span className="doc-link-disabled">Coming Soon</span>
           </div>
 
           <div className="doc-card">
-            <div className="doc-icon">💼</div>
             <h3 className="doc-title">Investors</h3>
             <p className="doc-description">
               Interested in partnering or investing in PredictBot? Reach out to discuss opportunities and platform growth.
