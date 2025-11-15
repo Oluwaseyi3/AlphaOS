@@ -51,7 +51,7 @@ function App() {
                 </svg>
               </a>
             </div>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
+            <a href="https://pump.fun/coin/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
               <button className="buy-pbot-button">Buy $PBOT</button>
             </a>
           </div>
@@ -148,18 +148,18 @@ function App() {
         <div className="token-info">
           <div className="token-ca">
             <span className="token-label">$PBOT CA:</span>
-            <span className="token-address">[COMING SOON]</span>
+            <span className="token-address">8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump</span>
           </div>
           <div className="token-links">
-            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://dexscreener.com/solana/9scxsknudrqe9magejtsvsuxxjprq6kmsptm9pgpwhzc" className="token-link" target="_blank" rel="noopener noreferrer">
               DexScreener
             </a>
             <span className="token-separator">•</span>
-            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.dextools.io/app/en/solana/pair-explorer/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" className="token-link" target="_blank" rel="noopener noreferrer">
               DexTools
             </a>
             <span className="token-separator">•</span>
-            <a href="#" className="token-link" target="_blank" rel="noopener noreferrer">
+            <a href="https://gmgn.ai/sol/token/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" className="token-link" target="_blank" rel="noopener noreferrer">
               GMGN
             </a>
           </div>
@@ -173,6 +173,7 @@ function App() {
           <p className="section-subtitle">
             Transform any Telegram group into a competitive prediction market. See who's the best at calling the market.
           </p>
+          <p className="fee-notice">1% fee on private chat trades • 2% fee on group chat trades</p>
 
           <div className="group-features-grid">
             <div className="group-feature">
@@ -533,6 +534,10 @@ function App() {
             {
               question: 'What protocols does PredictBot support?',
               answer: 'PredictBot is currently built on PNP Protocol (Parimutuel Network Protocol) on Solana. We have plans to expand to BetDex (Monaco Protocol) in the near future, giving you access to even more prediction markets and deeper liquidity across multiple protocols.'
+            },
+            {
+              question: 'What are the trading fees?',
+              answer: 'PredictBot charges a 1% fee on trades made in private chats and a 2% fee on trades made in group chats. These fees support platform development and contribute to the revenue share distributed to $PBOT stakers.'
             }
           ].map((faq, index) => (
             <div key={index} className="faq-item" onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}>
