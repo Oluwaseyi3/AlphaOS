@@ -51,7 +51,7 @@ function App() {
                 </svg>
               </a>
             </div>
-            <a href="https://pump.fun/coin/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
+            <a href="https://jup.ag/tokens/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
               <button className="buy-pbot-button">Buy $PBOT</button>
             </a>
           </div>
