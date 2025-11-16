@@ -84,13 +84,23 @@ export const transferToStakingPool = async (provider, amount) => {
 
     // Detect which token program this mint uses (Token-2022 vs standard SPL Token)
     let tokenProgramId = TOKEN_PROGRAM_ID
+    let actualDecimals = PBOT_DECIMALS
     try {
       const mintInfo = await getMint(connection, PBOT_MINT, 'confirmed', TOKEN_2022_PROGRAM_ID)
       tokenProgramId = TOKEN_2022_PROGRAM_ID
+      actualDecimals = mintInfo.decimals
       console.log('[STAKE] Using Token-2022 Program')
+      console.log('[STAKE] Token decimals:', actualDecimals)
     } catch (e) {
       // Fall back to standard token program
       console.log('[STAKE] Using Standard Token Program')
+      try {
+        const mintInfo = await getMint(connection, PBOT_MINT, 'confirmed', TOKEN_PROGRAM_ID)
+        actualDecimals = mintInfo.decimals
+        console.log('[STAKE] Token decimals:', actualDecimals)
+      } catch (e2) {
+        console.log('[STAKE] Could not fetch mint info, using default decimals:', PBOT_DECIMALS)
+      }
     }
 
     // Get user's token account
@@ -102,12 +112,13 @@ export const transferToStakingPool = async (provider, amount) => {
     // Get fee recipient's token account
     const feeTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, FEE_RECIPIENT, false, tokenProgramId)
 
-    // Calculate fee and net amount
-    const totalAmountInSmallestUnit = Math.floor(amount * Math.pow(10, PBOT_DECIMALS))
+    // Calculate fee and net amount using actual token decimals
+    const totalAmountInSmallestUnit = Math.floor(amount * Math.pow(10, actualDecimals))
     const feeAmount = Math.floor(totalAmountInSmallestUnit * STAKING_FEE_PERCENT / 100)
     const netAmountToStake = totalAmountInSmallestUnit - feeAmount
     
     console.log('[STAKE] Input amount:', amount)
+    console.log('[STAKE] Using decimals:', actualDecimals)
     console.log('[STAKE] Total in smallest units:', totalAmountInSmallestUnit)
     console.log('[STAKE] Fee amount:', feeAmount)
     console.log('[STAKE] Net to stake:', netAmountToStake)
