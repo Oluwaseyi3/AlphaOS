@@ -178,6 +178,7 @@ function Staking() {
       }
 
       // Record stake in database with real transaction signature
+      console.log('[HANDLE STAKE] Recording stake - amount:', transferResult.amount)
       await recordStake(walletAddress, transferResult.amount, transferResult.signature)
 
       // Refresh data (including new balance)

@@ -106,6 +106,11 @@ export const transferToStakingPool = async (provider, amount) => {
     const totalAmountInSmallestUnit = Math.floor(amount * Math.pow(10, PBOT_DECIMALS))
     const feeAmount = Math.floor(totalAmountInSmallestUnit * STAKING_FEE_PERCENT / 100)
     const netAmountToStake = totalAmountInSmallestUnit - feeAmount
+    
+    console.log('[STAKE] Input amount:', amount)
+    console.log('[STAKE] Total in smallest units:', totalAmountInSmallestUnit)
+    console.log('[STAKE] Fee amount:', feeAmount)
+    console.log('[STAKE] Net to stake:', netAmountToStake)
 
     // Create transaction
     const transaction = new Transaction()
