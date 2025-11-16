@@ -16,6 +16,7 @@ function Docs() {
           <div className="header-actions">
             <nav className="nav-links">
               <Link to="/" className="nav-link">Home</Link>
+              <Link to="/stake" className="nav-link">Stake</Link>
               <Link to="/docs" className="nav-link active">Docs</Link>
             </nav>
             <div className="social-links">
@@ -28,7 +29,7 @@ function Docs() {
                 </svg>
               </a>
             </div>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
+            <a href="https://jup.ag/tokens/8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump" target="_blank" rel="noopener noreferrer" className="buy-pbot-link">
               <button className="buy-pbot-button">Buy $PBOT</button>
             </a>
           </div>

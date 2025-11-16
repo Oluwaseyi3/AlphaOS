@@ -39,6 +39,7 @@ function App() {
           <div className="header-actions">
             <nav className="nav-links">
               <Link to="/" className="nav-link active">Home</Link>
+              <Link to="/stake" className="nav-link">Stake</Link>
               <Link to="/docs" className="nav-link">Docs</Link>
             </nav>
             <div className="social-links">

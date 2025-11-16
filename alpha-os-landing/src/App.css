@@ -251,6 +251,71 @@ body {
   font-weight: 300;
 }
 
+/* Token Info Responsive Styles */
+@media (max-width: 768px) {
+  .token-info {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    max-width: 100%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .token-ca {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .token-label {
+    font-size: 1rem;
+  }
+
+  .token-address {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    word-break: break-all;
+    max-width: 100%;
+  }
+
+  .token-links {
+    gap: 0.75rem;
+  }
+
+  .token-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .token-info {
+    padding: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 12px;
+  }
+
+  .token-label {
+    font-size: 0.9rem;
+  }
+
+  .token-address {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .token-links {
+    gap: 0.5rem;
+  }
+
+  .token-link {
+    font-size: 0.85rem;
+  }
+
+  .token-separator {
+    margin: 0 0.25rem;
+  }
+}
+
 /* Group Betting Section */
 .group-betting-section {
   background: linear-gradient(180deg, rgba(0, 168, 255, 0.03) 0%, transparent 100%);
@@ -1662,4 +1727,966 @@ a {
   .docs-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==================== STAKING PAGE STYLES ==================== */
+
+.staking-hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+  text-align: center;
+}
+
+.staking-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #00a8ff 0%, #0077cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.staking-subtitle {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Staking Stats Section */
+.staking-stats-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.staking-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.staking-stat-card {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(0, 168, 255, 0.15);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.staking-stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 168, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 168, 255, 0.15);
+}
+
+.stat-icon {
+  color: #00a8ff;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Staking Interface */
+.staking-interface-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.staking-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.staking-form-card,
+.staking-position-card {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+.staking-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.25rem;
+  border-radius: 12px;
+}
+
+.staking-tab {
+  flex: 1;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.staking-tab.active {
+  background: #00a8ff;
+  color: #ffffff;
+}
+
+.staking-tab:hover:not(.active) {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.staking-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.staking-label {
+  display: block;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.staking-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.staking-input {
+  width: 100%;
+  padding: 1rem;
+  padding-right: 5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.staking-input:focus {
+  outline: none;
+  border-color: #00a8ff;
+  box-shadow: 0 0 0 3px rgba(0, 168, 255, 0.2);
+}
+
+.staking-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.staking-token {
+  position: absolute;
+  right: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+}
+
+.staking-balance {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 0.5rem;
+}
+
+.staking-action-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #00a8ff 0%, #0077cc 100%);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.staking-action-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 168, 255, 0.4);
+}
+
+.staking-action-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.staking-note {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Off-chain Staking Styles */
+.staking-form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.staking-step {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  background: #00a8ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.step-content h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #ffffff;
+}
+
+.step-content p {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.staking-wallet-box {
+  background: rgba(0, 168, 255, 0.1);
+  border: 1px solid rgba(0, 168, 255, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-address-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.wallet-address {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #00a8ff;
+  word-break: break-all;
+  flex: 1;
+  font-family: monospace;
+}
+
+.copy-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy-button:hover {
+  background: rgba(0, 168, 255, 0.3);
+  border-color: #00a8ff;
+}
+
+.copied-text {
+  font-size: 0.75rem;
+  color: #00ff88;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.staking-warning {
+  display: flex;
+  gap: 0.75rem;
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  color: #ffc107;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.staking-warning svg {
+  min-width: 20px;
+  margin-top: 2px;
+}
+
+.staking-warning strong {
+  color: #ffc107;
+}
+
+.unstake-info {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+.unstake-info strong {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Wallet Connection Styles */
+.connect-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.connect-wallet-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #ab9ff2 0%, #8774e1 100%);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.connect-wallet-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(135, 116, 225, 0.4);
+}
+
+.connect-wallet-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.staking-info-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.staking-info-box h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.staking-info-box ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.staking-info-box li {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.35rem 0;
+  padding-left: 1.25rem;
+  position: relative;
+}
+
+.staking-info-box li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #00a8ff;
+  font-weight: bold;
+}
+
+.wallet-connected-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.wallet-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ff88;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.wallet-indicator {
+  width: 8px;
+  height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  animation: pulse-green 2s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.4);
+  }
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 8px rgba(0, 255, 136, 0);
+  }
+}
+
+.disconnect-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.disconnect-button:hover {
+  border-color: #ff4444;
+  color: #ff4444;
+}
+
+.wallet-address-display {
+  background: rgba(0, 168, 255, 0.1);
+  border: 1px solid rgba(0, 168, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #00a8ff;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.pool-info {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.pool-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.pool-info-item span {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pool-info-item code {
+  color: #00a8ff;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+/* Position Card */
+.position-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.position-stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.position-stat:last-of-type {
+  border-bottom: none;
+  margin-bottom: 1.5rem;
+}
+
+.position-label {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.position-value {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.position-value.rewards {
+  color: #00ff88;
+}
+
+.claim-button {
+  width: 100%;
+  padding: 0.875rem;
+  background: transparent;
+  border: 2px solid #00a8ff;
+  border-radius: 12px;
+  color: #00a8ff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.claim-button:hover:not(:disabled) {
+  background: #00a8ff;
+  color: #ffffff;
+}
+
+.claim-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reward-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Revenue Info Section */
+.revenue-info-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.revenue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.revenue-card {
+  background: linear-gradient(145deg, #14141c 0%, #0f0f14 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.revenue-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 168, 255, 0.3);
+}
+
+.revenue-card.highlight {
+  border-color: rgba(0, 168, 255, 0.4);
+  background: linear-gradient(145deg, rgba(0, 168, 255, 0.1) 0%, #0f0f14 100%);
+}
+
+.revenue-percentage {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #00a8ff;
+  margin-bottom: 1rem;
+}
+
+.revenue-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.revenue-description {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+/* Benefits Section */
+.staking-benefits-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.benefit-item {
+  text-align: center;
+}
+
+.benefit-icon {
+  color: #00a8ff;
+  margin-bottom: 1rem;
+}
+
+.benefit-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.benefit-text {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.5;
+}
+
+/* Staking CTA Section */
+.staking-cta-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* Responsive Staking Styles */
+@media (max-width: 1024px) {
+  .staking-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .staking-container {
+    grid-template-columns: 1fr;
+  }
+
+  .revenue-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .staking-title {
+    font-size: 2.25rem;
+  }
+
+  .staking-subtitle {
+    font-size: 1rem;
+  }
+
+  .staking-stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .staking-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* New Staking UI Elements */
+.current-month-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 168, 255, 0.1);
+  border: 1px solid rgba(0, 168, 255, 0.3);
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 1.5rem;
+}
+
+.current-month-info svg {
+  color: #00a8ff;
+}
+
+.error-banner {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid rgba(255, 77, 77, 0.3);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin: 0 auto 2rem;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #ff6b6b;
+}
+
+.error-banner svg {
+  flex-shrink: 0;
+}
+
+.error-banner button {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid rgba(255, 77, 77, 0.5);
+  color: #ff6b6b;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.error-banner button:hover {
+  background: rgba(255, 77, 77, 0.2);
+}
+
+.max-button {
+  background: rgba(0, 168, 255, 0.2);
+  border: none;
+  color: #00a8ff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.max-button:hover {
+  background: rgba(0, 168, 255, 0.3);
+}
+
+.refresh-balance-button {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.25rem;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-balance-button:hover {
+  color: #00a8ff;
+}
+
+.refresh-balance-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.refresh-balance-button .spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.no-stake-message {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.no-stake-message svg {
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.5rem;
+}
+
+.unstake-status {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 12px;
+}
+
+.unstake-status svg {
+  color: #ffc107;
+  margin-bottom: 0.5rem;
+}
+
+.unstake-status h4 {
+  color: #ffc107;
+  margin-bottom: 0.5rem;
+}
+
+.unstake-status p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.cooldown-note {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6) !important;
+  margin-bottom: 1rem !important;
+}
+
+.current-stake-info {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.current-stake-info p {
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.current-stake-info strong {
+  color: #00a8ff;
+}
+
+.staking-action-button.unstake {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+  box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+}
+
+.staking-action-button.unstake:hover:not(:disabled) {
+  box-shadow: 0 6px 30px rgba(255, 107, 107, 0.4);
+}
+
+.status-eligible {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.status-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffc107;
+  font-weight: 600;
+}
+
+.status-not-eligible {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.reward-breakdown {
+  background: rgba(0, 168, 255, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.reward-breakdown small {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.claim-reason {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.claim-reason small {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.total-claimed {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+}
+
+.claim-history-section {
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  padding: 0 2rem;
+}
+
+.claim-history-table {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.history-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.history-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.history-row:hover {
+  background: rgba(255, 255, 255, 0.02);
 }
