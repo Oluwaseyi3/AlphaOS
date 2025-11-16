@@ -40,6 +40,7 @@ function Staking() {
   const [claimableRewards, setClaimableRewards] = useState(null)
   const [claimHistory, setClaimHistory] = useState([])
   const [error, setError] = useState(null)
+  const [toast, setToast] = useState(null)
 
   // Check if Phantom is installed
   const getProvider = () => {
@@ -185,7 +186,12 @@ function Staking() {
       await fetchAllData()
       setStakeAmount('')
 
-      alert(`Successfully staked ${formatPbotAmount(amount)} $PBOT!\n\nTransaction: ${transferResult.signature.slice(0, 8)}...${transferResult.signature.slice(-8)}\n\nYou will be eligible for ${getNextMonth()} rewards.`)
+      // Show success toast
+      setToast({
+        type: 'success',
+        message: `Successfully staked ${formatPbotAmount(amount)} $PBOT! You will be eligible for ${getNextMonth()} rewards.`
+      })
+      setTimeout(() => setToast(null), 5000)
     } catch (err) {
       console.error('Stake failed:', err)
       if (err.message?.includes('User rejected')) {
@@ -209,7 +215,11 @@ function Staking() {
     try {
       const result = await requestUnstake(walletAddress)
       await fetchAllData()
-      alert(`Unstake request submitted!\n\nYou can execute unstake on ${result.unstake_month}-01.\nYou will still receive rewards during cooldown.`)
+      setToast({
+        type: 'success',
+        message: `Unstake request submitted! You can execute unstake on ${result.unstake_month}-01.`
+      })
+      setTimeout(() => setToast(null), 5000)
     } catch (err) {
       console.error('Unstake request failed:', err)
       setError(err.message || 'Failed to request unstake')
@@ -227,7 +237,11 @@ function Staking() {
     try {
       const result = await executeUnstake(walletAddress)
       await fetchAllData()
-      alert(`Successfully unstaked ${formatTokens(result.amount / 1e9)} $PBOT!\n\nTokens have been returned to your wallet.`)
+      setToast({
+        type: 'success',
+        message: `Successfully unstaked ${formatTokens(result.amount / 1e6)} $PBOT!`
+      })
+      setTimeout(() => setToast(null), 5000)
     } catch (err) {
       console.error('Execute unstake failed:', err)
       setError(err.message || 'Failed to execute unstake')
@@ -247,7 +261,11 @@ function Staking() {
       // The treasury will automatically process SOL transfers for valid claims
       const result = await claimRewards(walletAddress, 'claimed')
       await fetchAllData()
-      alert(`Successfully claimed ${lamportsToSol(result.amount_sol)} SOL for ${result.month}!\n\nYour rewards have been recorded. SOL will be transferred to your wallet within 24 hours.\n\nClaim ID: ${result.id.slice(0, 8)}`)
+      setToast({
+        type: 'success',
+        message: `Successfully claimed ${lamportsToSol(result.amount_sol)} SOL for ${result.month}! SOL will be transferred within 24 hours.`
+      })
+      setTimeout(() => setToast(null), 5000)
     } catch (err) {
       console.error('Claim failed:', err)
       setError(err.message || 'Failed to claim rewards')
@@ -333,6 +351,15 @@ function Staking() {
         </div>
       </section>
 
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`toast-notification ${toast.type}`}>
+          {toast.type === 'success' ? <CheckCircle size={20} /> : <AlertTriangle size={20} />}
+          <span>{toast.message}</span>
+          <button onClick={() => setToast(null)}>×</button>
+        </div>
+      )}
+
       {/* Error Display */}
       {error && (
         <div className="error-banner">
@@ -350,7 +377,7 @@ function Staking() {
               <Wallet size={24} />
             </div>
             <div className="stat-value">
-              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatTokens(poolStats?.total_staked / 1e9 || 0)}
+              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatTokens(poolStats?.total_staked / 1e6 || 0)}
             </div>
             <div className="stat-label">Total $PBOT Staked</div>
           </div>
@@ -520,7 +547,7 @@ function Staking() {
                     ) : (
                       <>
                         <div className="current-stake-info">
-                          <p>Your current stake: <strong>{formatTokens(userStake.amount_staked / 1e9)} $PBOT</strong></p>
+                          <p>Your current stake: <strong>{formatTokens(userStake.amount_staked / 1e6)} $PBOT</strong></p>
                           <p>Staked since: <strong>{formatMonth(userStake.stake_month)}</strong></p>
                         </div>
 
@@ -553,7 +580,7 @@ function Staking() {
             <div className="position-stat">
               <span className="position-label">Your Staked</span>
               <span className="position-value">
-                {dataLoading ? '...' : formatTokens((userStake?.amount_staked || 0) / 1e9)} $PBOT
+                {dataLoading ? '...' : formatTokens((userStake?.amount_staked || 0) / 1e6)} $PBOT
               </span>
             </div>
 
