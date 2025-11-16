@@ -86,7 +86,9 @@ function Staking() {
     setError(null)
     try {
       // Fetch pool stats
+      console.log('[FETCH DATA] Fetching pool stats...')
       const stats = await getPoolStats()
+      console.log('[FETCH DATA] Pool stats received:', stats)
       setPoolStats(stats)
 
       // Fetch user-specific data if wallet connected
