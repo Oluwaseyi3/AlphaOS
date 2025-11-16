@@ -226,7 +226,7 @@ function Staking() {
     try {
       const result = await executeUnstake(walletAddress)
       await fetchAllData()
-      alert(`Successfully unstaked ${formatTokens(result.amount / 1e6)} $PBOT!\n\nTokens have been returned to your wallet.`)
+      alert(`Successfully unstaked ${formatTokens(result.amount / 1e9)} $PBOT!\n\nTokens have been returned to your wallet.`)
     } catch (err) {
       console.error('Execute unstake failed:', err)
       setError(err.message || 'Failed to execute unstake')
@@ -349,7 +349,7 @@ function Staking() {
               <Wallet size={24} />
             </div>
             <div className="stat-value">
-              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatTokens(poolStats?.total_staked / 1e6 || 0)}
+              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatTokens(poolStats?.total_staked / 1e9 || 0)}
             </div>
             <div className="stat-label">Total $PBOT Staked</div>
           </div>
@@ -519,7 +519,7 @@ function Staking() {
                     ) : (
                       <>
                         <div className="current-stake-info">
-                          <p>Your current stake: <strong>{formatTokens(userStake.amount_staked / 1e6)} $PBOT</strong></p>
+                          <p>Your current stake: <strong>{formatTokens(userStake.amount_staked / 1e9)} $PBOT</strong></p>
                           <p>Staked since: <strong>{formatMonth(userStake.stake_month)}</strong></p>
                         </div>
 
@@ -552,7 +552,7 @@ function Staking() {
             <div className="position-stat">
               <span className="position-label">Your Staked</span>
               <span className="position-value">
-                {dataLoading ? '...' : formatTokens((userStake?.amount_staked || 0) / 1e6)} $PBOT
+                {dataLoading ? '...' : formatTokens((userStake?.amount_staked || 0) / 1e9)} $PBOT
               </span>
             </div>
 
