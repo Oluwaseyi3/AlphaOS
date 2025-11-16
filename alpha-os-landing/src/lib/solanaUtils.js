@@ -1,5 +1,5 @@
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID, getAccount } from '@solana/spl-token'
+import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID, getAccount, createAssociatedTokenAccountInstruction } from '@solana/spl-token'
 
 // Solana connection - using Helius RPC for reliable access
 const SOLANA_RPC = import.meta.env.VITE_SOLANA_RPC_URL
@@ -96,8 +96,40 @@ export const transferToStakingPool = async (provider, amount) => {
     const feeAmount = Math.floor(totalAmountInSmallestUnit * STAKING_FEE_PERCENT / 100)
     const netAmountToStake = totalAmountInSmallestUnit - feeAmount
 
-    // Create transaction with two transfers
+    // Create transaction
     const transaction = new Transaction()
+
+    // Check if pool token account exists, create if not
+    try {
+      await getAccount(connection, poolTokenAccount)
+      console.log('[STAKE] Pool token account exists')
+    } catch (e) {
+      console.log('[STAKE] Creating pool token account...')
+      transaction.add(
+        createAssociatedTokenAccountInstruction(
+          userPublicKey, // payer
+          poolTokenAccount, // associated token account
+          STAKING_POOL_ADDRESS, // owner
+          PBOT_MINT // mint
+        )
+      )
+    }
+
+    // Check if fee recipient token account exists, create if not
+    try {
+      await getAccount(connection, feeTokenAccount)
+      console.log('[STAKE] Fee recipient token account exists')
+    } catch (e) {
+      console.log('[STAKE] Creating fee recipient token account...')
+      transaction.add(
+        createAssociatedTokenAccountInstruction(
+          userPublicKey, // payer
+          feeTokenAccount, // associated token account
+          FEE_RECIPIENT, // owner
+          PBOT_MINT // mint
+        )
+      )
+    }
 
     // Transfer net amount to staking pool
     const stakeInstruction = createTransferInstruction(
