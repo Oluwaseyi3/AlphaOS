@@ -41,34 +41,39 @@ export const getSolBalance = async (walletAddress) => {
 
 // Get user's $PBOT token balance
 export const getPbotBalance = async (walletAddress) => {
+  console.log('[PBOT BALANCE] Fetching for wallet:', walletAddress)
+  console.log('[PBOT BALANCE] Using mint:', PBOT_MINT.toBase58())
+
   try {
     const publicKey = new PublicKey(walletAddress)
-    const tokenAccount = await getAssociatedTokenAddress(PBOT_MINT, publicKey)
 
-    const accountInfo = await getAccount(connection, tokenAccount)
-    // Convert from smallest unit to human readable
-    return Number(accountInfo.amount) / Math.pow(10, PBOT_DECIMALS)
+    // Use getParsedTokenAccountsByOwner - most reliable method
+    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+      mint: PBOT_MINT
+    })
+
+    console.log('[PBOT BALANCE] Token accounts found:', tokenAccounts.value.length)
+
+    if (tokenAccounts.value.length > 0) {
+      const tokenData = tokenAccounts.value[0].account.data.parsed.info
+      const balance = tokenData.tokenAmount.uiAmount
+      console.log('[PBOT BALANCE] ✅ Balance:', balance)
+      return balance || 0
+    }
+
+    // No token account found
+    console.log('[PBOT BALANCE] No token account found - balance is 0')
+    return 0
   } catch (error) {
-    // Token account might not exist yet
+    console.error('[PBOT BALANCE] ❌ Error:', error)
+    // Token account doesn't exist = 0 balance
     if (error.name === 'TokenAccountNotFoundError' || error.message?.includes('could not find account')) {
+      console.log('[PBOT BALANCE] Account not found - returning 0')
       return 0
     }
-    console.error('Error fetching PBOT balance:', error)
-    // Try alternative method using getParsedTokenAccountsByOwner
-    try {
-      const publicKey = new PublicKey(walletAddress)
-      const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
-        mint: PBOT_MINT
-      })
-      if (tokenAccounts.value.length > 0) {
-        const balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount
-        return balance || 0
-      }
-      return 0
-    } catch (fallbackError) {
-      console.error('Fallback balance fetch failed:', fallbackError)
-      return 0
-    }
+    // For any other error, return 0 but log it
+    console.error('[PBOT BALANCE] Unexpected error, returning 0:', error.message)
+    return 0
   }
 }
 
