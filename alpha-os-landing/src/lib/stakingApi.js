@@ -34,20 +34,8 @@ export const getDaysUntilNextMonth = () => {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 }
 
-// Fetch pool statistics - calculate from stakers table directly
+// Fetch pool statistics - always calculate from stakers table for accuracy
 export const getPoolStats = async () => {
-  // Try to get from pool_stats table first
-  const { data: poolStats, error: poolError } = await supabase
-    .from('pool_stats')
-    .select('*')
-    .single()
-
-  // If pool_stats table exists and has data, use it
-  if (!poolError && poolStats) {
-    return poolStats
-  }
-
-  // Otherwise, calculate from stakers table
   console.log('[POOL STATS] Calculating from stakers table...')
   const { data: stakers, error: stakersError } = await supabase
     .from('stakers')
@@ -64,16 +52,30 @@ export const getPoolStats = async () => {
 
   console.log('[POOL STATS] Stakers data:', stakers)
 
-  // Calculate totals
+  // Calculate totals from actual staker records
   const total_staked = stakers.reduce((sum, s) => sum + (s.amount_staked || 0), 0)
   const total_stakers = stakers.length
 
   console.log('[POOL STATS] Total staked:', total_staked, 'Total stakers:', total_stakers)
 
+  // Get SOL rewards pool from pool_stats table if available
+  let sol_rewards_pool = 0
+  try {
+    const { data: poolStats } = await supabase
+      .from('pool_stats')
+      .select('sol_rewards_pool')
+      .single()
+    if (poolStats) {
+      sol_rewards_pool = poolStats.sol_rewards_pool || 0
+    }
+  } catch (e) {
+    // pool_stats table might not exist
+  }
+
   return {
     total_staked,
     total_stakers,
-    sol_rewards_pool: 0 // Will be updated manually
+    sol_rewards_pool
   }
 }
 
