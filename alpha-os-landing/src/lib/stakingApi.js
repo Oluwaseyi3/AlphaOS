@@ -48,12 +48,13 @@ export const getPoolStats = async () => {
   }
 
   // Otherwise, calculate from stakers table
+  console.log('[POOL STATS] Calculating from stakers table...')
   const { data: stakers, error: stakersError } = await supabase
     .from('stakers')
     .select('amount_staked')
 
   if (stakersError) {
-    console.error('Error fetching stakers:', stakersError)
+    console.error('[POOL STATS] Error fetching stakers:', stakersError)
     return {
       total_staked: 0,
       total_stakers: 0,
@@ -61,9 +62,13 @@ export const getPoolStats = async () => {
     }
   }
 
+  console.log('[POOL STATS] Stakers data:', stakers)
+
   // Calculate totals
   const total_staked = stakers.reduce((sum, s) => sum + (s.amount_staked || 0), 0)
   const total_stakers = stakers.length
+
+  console.log('[POOL STATS] Total staked:', total_staked, 'Total stakers:', total_stakers)
 
   return {
     total_staked,
@@ -86,10 +91,12 @@ export const getUserStake = async (walletAddress) => {
 
 // Record a new stake (called after verifying on-chain transfer)
 export const recordStake = async (walletAddress, amount, txSignature) => {
+  console.log('[RECORD STAKE] Wallet:', walletAddress, 'Amount:', amount, 'Tx:', txSignature)
   const currentMonth = getCurrentMonth()
 
   // Check if user already has a stake
   const existing = await getUserStake(walletAddress)
+  console.log('[RECORD STAKE] Existing stake:', existing)
 
   if (existing) {
     // Add to existing stake
@@ -126,14 +133,19 @@ export const recordStake = async (walletAddress, amount, txSignature) => {
       .select()
       .single()
 
-    if (error) throw error
+    if (error) {
+      console.error('[RECORD STAKE] Error creating stake:', error)
+      throw error
+    }
+
+    console.log('[RECORD STAKE] Successfully created stake:', data)
 
     // Try to update pool stats (optional - we calculate from stakers table anyway)
     try {
       await supabase.rpc('increment_staker_count')
       await supabase.rpc('update_total_staked', { delta: amount })
     } catch (e) {
-      console.log('RPC not available, stats will be calculated from stakers table')
+      console.log('[RECORD STAKE] RPC not available, stats will be calculated from stakers table')
     }
 
     return data
