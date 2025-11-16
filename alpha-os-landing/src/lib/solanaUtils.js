@@ -24,8 +24,8 @@ export const STAKING_FEE_PERCENT = 2
 // This should be the same wallet that deposits SOL for rewards
 export const TREASURY_WALLET = new PublicKey('EYvYCMoMd4UPUbuFHXzyQJxengGih9szJsbNtvNQb86S')
 
-// Token decimals (most SPL tokens use 6 or 9 decimals)
-export const PBOT_DECIMALS = 6
+// Token decimals (pump.fun tokens typically use 9 decimals)
+export const PBOT_DECIMALS = 9
 
 // Get user's SOL balance
 export const getSolBalance = async (walletAddress) => {
