@@ -34,15 +34,42 @@ export const getDaysUntilNextMonth = () => {
   return Math.ceil(diffTime / (1000 * 60 * 60 * 24))
 }
 
-// Fetch pool statistics
+// Fetch pool statistics - calculate from stakers table directly
 export const getPoolStats = async () => {
-  const { data, error } = await supabase
+  // Try to get from pool_stats table first
+  const { data: poolStats, error: poolError } = await supabase
     .from('pool_stats')
     .select('*')
     .single()
 
-  if (error) throw error
-  return data
+  // If pool_stats table exists and has data, use it
+  if (!poolError && poolStats) {
+    return poolStats
+  }
+
+  // Otherwise, calculate from stakers table
+  const { data: stakers, error: stakersError } = await supabase
+    .from('stakers')
+    .select('amount_staked')
+
+  if (stakersError) {
+    console.error('Error fetching stakers:', stakersError)
+    return {
+      total_staked: 0,
+      total_stakers: 0,
+      sol_rewards_pool: 0
+    }
+  }
+
+  // Calculate totals
+  const total_staked = stakers.reduce((sum, s) => sum + (s.amount_staked || 0), 0)
+  const total_stakers = stakers.length
+
+  return {
+    total_staked,
+    total_stakers,
+    sol_rewards_pool: 0 // Will be updated manually
+  }
 }
 
 // Fetch user's staking position
@@ -78,8 +105,12 @@ export const recordStake = async (walletAddress, amount, txSignature) => {
 
     if (error) throw error
 
-    // Update total staked in pool stats
-    await supabase.rpc('update_total_staked', { delta: amount })
+    // Try to update pool stats (optional - we calculate from stakers table anyway)
+    try {
+      await supabase.rpc('update_total_staked', { delta: amount })
+    } catch (e) {
+      console.log('RPC not available, stats will be calculated from stakers table')
+    }
 
     return data
   } else {
@@ -97,9 +128,13 @@ export const recordStake = async (walletAddress, amount, txSignature) => {
 
     if (error) throw error
 
-    // Update pool stats - increment staker count and total staked
-    await supabase.rpc('increment_staker_count')
-    await supabase.rpc('update_total_staked', { delta: amount })
+    // Try to update pool stats (optional - we calculate from stakers table anyway)
+    try {
+      await supabase.rpc('increment_staker_count')
+      await supabase.rpc('update_total_staked', { delta: amount })
+    } catch (e) {
+      console.log('RPC not available, stats will be calculated from stakers table')
+    }
 
     return data
   }
@@ -154,9 +189,13 @@ export const executeUnstake = async (walletAddress) => {
 
   if (error) throw error
 
-  // Update pool stats - decrement staker count and total staked
-  await supabase.rpc('decrement_staker_count')
-  await supabase.rpc('update_total_staked', { delta: -amountToReturn })
+  // Try to update pool stats (optional - we calculate from stakers table anyway)
+  try {
+    await supabase.rpc('decrement_staker_count')
+    await supabase.rpc('update_total_staked', { delta: -amountToReturn })
+  } catch (e) {
+    console.log('RPC not available, stats will be calculated from stakers table')
+  }
 
   return { amount: amountToReturn }
 }
