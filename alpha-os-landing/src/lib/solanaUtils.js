@@ -1,5 +1,5 @@
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
-import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID, getAccount, createAssociatedTokenAccountInstruction } from '@solana/spl-token'
+import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, getAccount, createAssociatedTokenAccountInstruction, getMint } from '@solana/spl-token'
 
 // Solana connection - using Helius RPC for reliable access
 const SOLANA_RPC = import.meta.env.VITE_SOLANA_RPC_URL
@@ -82,14 +82,25 @@ export const transferToStakingPool = async (provider, amount) => {
   try {
     const userPublicKey = provider.publicKey
 
+    // Detect which token program this mint uses (Token-2022 vs standard SPL Token)
+    let tokenProgramId = TOKEN_PROGRAM_ID
+    try {
+      const mintInfo = await getMint(connection, PBOT_MINT, 'confirmed', TOKEN_2022_PROGRAM_ID)
+      tokenProgramId = TOKEN_2022_PROGRAM_ID
+      console.log('[STAKE] Using Token-2022 Program')
+    } catch (e) {
+      // Fall back to standard token program
+      console.log('[STAKE] Using Standard Token Program')
+    }
+
     // Get user's token account
-    const userTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, userPublicKey)
+    const userTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, userPublicKey, false, tokenProgramId)
 
     // Get staking pool's token account
-    const poolTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, STAKING_POOL_ADDRESS)
+    const poolTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, STAKING_POOL_ADDRESS, false, tokenProgramId)
 
     // Get fee recipient's token account
-    const feeTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, FEE_RECIPIENT)
+    const feeTokenAccount = await getAssociatedTokenAddress(PBOT_MINT, FEE_RECIPIENT, false, tokenProgramId)
 
     // Calculate fee and net amount
     const totalAmountInSmallestUnit = Math.floor(amount * Math.pow(10, PBOT_DECIMALS))
@@ -101,7 +112,7 @@ export const transferToStakingPool = async (provider, amount) => {
 
     // Check if pool token account exists, create if not
     try {
-      await getAccount(connection, poolTokenAccount)
+      await getAccount(connection, poolTokenAccount, 'confirmed', tokenProgramId)
       console.log('[STAKE] Pool token account exists')
     } catch (e) {
       console.log('[STAKE] Creating pool token account...')
@@ -110,14 +121,15 @@ export const transferToStakingPool = async (provider, amount) => {
           userPublicKey, // payer
           poolTokenAccount, // associated token account
           STAKING_POOL_ADDRESS, // owner
-          PBOT_MINT // mint
+          PBOT_MINT, // mint
+          tokenProgramId // correct program
         )
       )
     }
 
     // Check if fee recipient token account exists, create if not
     try {
-      await getAccount(connection, feeTokenAccount)
+      await getAccount(connection, feeTokenAccount, 'confirmed', tokenProgramId)
       console.log('[STAKE] Fee recipient token account exists')
     } catch (e) {
       console.log('[STAKE] Creating fee recipient token account...')
@@ -126,7 +138,8 @@ export const transferToStakingPool = async (provider, amount) => {
           userPublicKey, // payer
           feeTokenAccount, // associated token account
           FEE_RECIPIENT, // owner
-          PBOT_MINT // mint
+          PBOT_MINT, // mint
+          tokenProgramId // correct program
         )
       )
     }
@@ -138,7 +151,7 @@ export const transferToStakingPool = async (provider, amount) => {
       userPublicKey,
       netAmountToStake,
       [],
-      TOKEN_PROGRAM_ID
+      tokenProgramId
     )
     transaction.add(stakeInstruction)
 
@@ -150,7 +163,7 @@ export const transferToStakingPool = async (provider, amount) => {
         userPublicKey,
         feeAmount,
         [],
-        TOKEN_PROGRAM_ID
+        tokenProgramId
       )
       transaction.add(feeInstruction)
     }
