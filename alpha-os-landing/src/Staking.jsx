@@ -349,7 +349,7 @@ function Staking() {
               <Wallet size={24} />
             </div>
             <div className="stat-value">
-              {dataLoading ? '...' : formatTokens(poolStats?.total_staked / 1e6 || 0)}
+              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatTokens(poolStats?.total_staked / 1e6 || 0)}
             </div>
             <div className="stat-label">Total $PBOT Staked</div>
           </div>
@@ -358,7 +358,7 @@ function Staking() {
               <Zap size={24} />
             </div>
             <div className="stat-value">
-              {dataLoading ? '...' : poolStats?.total_stakers || 0}
+              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;</span> : poolStats?.total_stakers || 0}
             </div>
             <div className="stat-label">Active Stakers</div>
           </div>
@@ -367,7 +367,7 @@ function Staking() {
               <TrendingUp size={24} />
             </div>
             <div className="stat-value">
-              {dataLoading ? '...' : lamportsToSol(poolStats?.sol_rewards_pool || 0)} SOL
+              {dataLoading ? <span className="loading-skeleton">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : lamportsToSol(poolStats?.sol_rewards_pool || 0)} SOL
             </div>
             <div className="stat-label">Current Reward Pool</div>
           </div>
@@ -460,7 +460,7 @@ function Staking() {
                         <span className="staking-token">$PBOT</span>
                       </div>
                       <div className="staking-balance">
-                        Balance: {balanceLoading ? '...' : formatPbotAmount(userBalance)} $PBOT
+                        Balance: {balanceLoading ? <span className="loading-skeleton loading-pulse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> : formatPbotAmount(userBalance)} $PBOT
                         <button
                           className="refresh-balance-button"
                           onClick={() => fetchBalance(walletAddress)}
@@ -472,6 +472,7 @@ function Staking() {
                         <button
                           className="max-button"
                           onClick={() => setStakeAmount(userBalance.toString())}
+                          disabled={balanceLoading}
                         >
                           MAX
                         </button>

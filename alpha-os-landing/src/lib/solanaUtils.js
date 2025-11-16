@@ -50,11 +50,25 @@ export const getPbotBalance = async (walletAddress) => {
     return Number(accountInfo.amount) / Math.pow(10, PBOT_DECIMALS)
   } catch (error) {
     // Token account might not exist yet
-    if (error.name === 'TokenAccountNotFoundError') {
+    if (error.name === 'TokenAccountNotFoundError' || error.message?.includes('could not find account')) {
       return 0
     }
     console.error('Error fetching PBOT balance:', error)
-    return 0
+    // Try alternative method using getParsedTokenAccountsByOwner
+    try {
+      const publicKey = new PublicKey(walletAddress)
+      const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+        mint: PBOT_MINT
+      })
+      if (tokenAccounts.value.length > 0) {
+        const balance = tokenAccounts.value[0].account.data.parsed.info.tokenAmount.uiAmount
+        return balance || 0
+      }
+      return 0
+    } catch (fallbackError) {
+      console.error('Fallback balance fetch failed:', fallbackError)
+      return 0
+    }
   }
 }
 
