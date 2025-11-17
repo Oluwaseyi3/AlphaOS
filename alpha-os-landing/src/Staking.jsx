@@ -81,11 +81,11 @@ function Staking() {
   }, [])
 
   // Fetch all data
-  const fetchAllData = useCallback(async (wallet = walletAddress) => {
+  const fetchAllData = useCallback(async (wallet) => {
     setDataLoading(true)
     setError(null)
     try {
-      // Fetch pool stats
+      // Always fetch pool stats (doesn't require wallet)
       console.log('[FETCH DATA] Fetching pool stats...')
       const stats = await getPoolStats()
       console.log('[FETCH DATA] Pool stats received:', stats)
@@ -93,6 +93,7 @@ function Staking() {
 
       // Fetch user-specific data if wallet connected
       if (wallet) {
+        console.log('[FETCH DATA] Fetching user data for wallet:', wallet)
         const stake = await getUserStake(wallet)
         setUserStake(stake)
 
@@ -104,6 +105,8 @@ function Staking() {
 
         // Fetch real $PBOT balance from blockchain
         await fetchBalance(wallet)
+      } else {
+        console.log('[FETCH DATA] No wallet connected, skipping user data')
       }
     } catch (err) {
       console.error('Error fetching data:', err)
@@ -111,7 +114,7 @@ function Staking() {
     } finally {
       setDataLoading(false)
     }
-  }, [walletAddress, fetchBalance])
+  }, [fetchBalance])
 
   // Connect wallet
   const connectWallet = async () => {
@@ -288,12 +291,15 @@ function Staking() {
           fetchAllData(address)
         })
         .catch(() => {
-          fetchAllData()
+          // Even if wallet doesn't auto-connect, fetch pool stats
+          fetchAllData(null)
         })
     } else {
-      fetchAllData()
+      // No provider, but still fetch pool stats
+      fetchAllData(null)
     }
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Only run once on mount
 
   // Helper to format month string
   const formatMonth = (monthStr) => {
