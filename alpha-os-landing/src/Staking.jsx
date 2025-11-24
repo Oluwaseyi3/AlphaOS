@@ -526,7 +526,7 @@ function Staking() {
                     <div className="staking-warning">
                       <AlertTriangle size={20} />
                       <div>
-                        <strong>Important:</strong> Stake before {formatMonth(getNextMonth())} to be eligible for that month's rewards. 2% staking fee applies.
+                        <strong>Important:</strong> Stake before {formatMonth(getNextMonth())} to be eligible for that month's rewards. 4% staking fee applies.
                       </div>
                     </div>
                   </>

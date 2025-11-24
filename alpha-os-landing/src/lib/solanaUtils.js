@@ -18,7 +18,7 @@ export const STAKING_POOL_ADDRESS = new PublicKey('EYvYCMoMd4UPUbuFHXzyQJxengGih
 export const FEE_RECIPIENT = new PublicKey('8aXc4dTWsxESP4FQGcqkb6tTHG6DwwkDXbHtWqwEeeVY')
 
 // Staking fee percentage
-export const STAKING_FEE_PERCENT = 2
+export const STAKING_FEE_PERCENT = 4
 
 // Treasury wallet address (where SOL rewards are paid from)
 // This should be the same wallet that deposits SOL for rewards
@@ -77,7 +77,7 @@ export const getPbotBalance = async (walletAddress) => {
   }
 }
 
-// Transfer $PBOT tokens to staking pool with 2% fee
+// Transfer $PBOT tokens to staking pool with 4% fee
 export const transferToStakingPool = async (provider, amount) => {
   try {
     const userPublicKey = provider.publicKey
