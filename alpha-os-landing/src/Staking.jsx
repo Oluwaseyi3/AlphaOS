@@ -9,6 +9,7 @@ import {
   getDaysUntilNextReward,
   getPoolStats,
   getUserStake,
+  getAllUserStakes,
   recordStake,
   requestUnstake,
   executeUnstake,
@@ -39,6 +40,7 @@ function Staking() {
   const [userStake, setUserStake] = useState(null)
   const [claimableRewards, setClaimableRewards] = useState(null)
   const [claimHistory, setClaimHistory] = useState([])
+  const [unstakedRecord, setUnstakedRecord] = useState(null) // Track unstaked records for success message
   const [error, setError] = useState(null)
   const [toast, setToast] = useState(null)
 
@@ -96,6 +98,11 @@ function Staking() {
         console.log('[FETCH DATA] Fetching user data for wallet:', wallet)
         const stake = await getUserStake(wallet)
         setUserStake(stake)
+
+        // Check for recently unstaked records
+        const allStakes = await getAllUserStakes(wallet)
+        const unstaked = allStakes.find(s => s.status === 'unstaked')
+        setUnstakedRecord(unstaked || null)
 
         const rewards = await getClaimableRewards(wallet)
         setClaimableRewards(rewards)
@@ -298,7 +305,7 @@ function Staking() {
       // No provider, but still fetch pool stats
       fetchAllData(null)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // Only run once on mount
 
   // Helper to format month string
@@ -335,7 +342,7 @@ function Staking() {
               </a>
               <a href="https://x.com/PredictBotSol" target="_blank" rel="noopener noreferrer" className="social-link" aria-label="X (Twitter)">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
             </div>
@@ -532,7 +539,15 @@ function Staking() {
                   </>
                 ) : (
                   <>
-                    {!userStake ? (
+                    {!userStake && unstakedRecord ? (
+                      <div className="unstake-success-message">
+                        <CheckCircle size={24} />
+                        <h4>Unstake Complete!</h4>
+                        <p><strong>{formatTokens(unstakedRecord.amount_staked / 1e6)} $PBOT</strong> was unstaked</p>
+                        <p className="unstake-date">Processed on {new Date(unstakedRecord.unstake_executed_at).toLocaleDateString()}</p>
+                        <p className="unstake-note">Your tokens are ready to be returned. Admin will send them to your wallet.</p>
+                      </div>
+                    ) : !userStake ? (
                       <div className="no-stake-message">
                         <XCircle size={24} />
                         <p>You don't have any staked tokens.</p>

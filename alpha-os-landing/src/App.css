@@ -2663,6 +2663,47 @@ a {
   margin-bottom: 0.5rem;
 }
 
+/* Unstake Success Message */
+.unstake-success-message {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 12px;
+}
+
+.unstake-success-message svg {
+  color: #00ff88;
+  margin-bottom: 0.5rem;
+}
+
+.unstake-success-message h4 {
+  color: #00ff88;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.unstake-success-message p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+}
+
+.unstake-success-message strong {
+  color: #00ff88;
+}
+
+.unstake-success-message .unstake-date {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.unstake-success-message .unstake-note {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 1rem;
+  font-style: italic;
+}
+
 .unstake-status {
   text-align: center;
   padding: 1.5rem;

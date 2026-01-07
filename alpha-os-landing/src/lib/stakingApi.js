@@ -1,5 +1,24 @@
 import { supabase } from './supabase'
 
+// Helper: Log staking events to history table for audit trail
+const logStakingEvent = async (walletAddress, eventType, amount, stakeMonth = null, unstakeMonth = null, txSignature = null, metadata = null) => {
+  try {
+    await supabase.from('staking_history').insert({
+      wallet_address: walletAddress,
+      event_type: eventType,
+      amount: amount,
+      stake_month: stakeMonth,
+      unstake_month: unstakeMonth,
+      tx_signature: txSignature,
+      metadata: metadata
+    })
+    console.log(`[STAKING HISTORY] Logged ${eventType} for ${walletAddress}`)
+  } catch (e) {
+    console.error('[STAKING HISTORY] Failed to log event:', e)
+    // Don't throw - history logging should not break main flow
+  }
+}
+
 // Helper: Get current month in YYYY-MM format
 export const getCurrentMonth = () => {
   const now = new Date()
@@ -40,6 +59,7 @@ export const getPoolStats = async () => {
   const { data: stakers, error: stakersError } = await supabase
     .from('stakers')
     .select('amount_staked')
+    .or('status.is.null,status.eq.active') // Only count active stakers
 
   if (stakersError) {
     console.error('[POOL STATS] Error fetching stakers:', stakersError)
@@ -79,16 +99,29 @@ export const getPoolStats = async () => {
   }
 }
 
-// Fetch user's staking position
+// Fetch user's staking position (only active stakes)
 export const getUserStake = async (walletAddress) => {
   const { data, error } = await supabase
     .from('stakers')
     .select('*')
     .eq('wallet_address', walletAddress)
+    .or('status.is.null,status.eq.active') // Only return active stakes
     .maybeSingle() // Returns null if no row found, instead of error
 
   if (error) throw error
   return data || null
+}
+
+// Fetch ALL user stakes including unstaked (for history/audit)
+export const getAllUserStakes = async (walletAddress) => {
+  const { data, error } = await supabase
+    .from('stakers')
+    .select('*')
+    .eq('wallet_address', walletAddress)
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return data || []
 }
 
 // Record a new stake (called after verifying on-chain transfer)
@@ -121,6 +154,9 @@ export const recordStake = async (walletAddress, amount, txSignature) => {
       console.log('RPC not available, stats will be calculated from stakers table')
     }
 
+    // Log the stake event
+    await logStakingEvent(walletAddress, 'stake', amount, currentMonth, null, txSignature, { type: 'add_to_existing', previous_amount: existing.amount_staked })
+
     return data
   } else {
     // Create new staker record
@@ -149,6 +185,9 @@ export const recordStake = async (walletAddress, amount, txSignature) => {
     } catch (e) {
       console.log('[RECORD STAKE] RPC not available, stats will be calculated from stakers table')
     }
+
+    // Log the stake event
+    await logStakingEvent(walletAddress, 'stake', amount, currentMonth, null, txSignature, { type: 'new_stake' })
 
     return data
   }
@@ -179,6 +218,10 @@ export const requestUnstake = async (walletAddress) => {
     .single()
 
   if (error) throw error
+
+  // Log the unstake request event
+  await logStakingEvent(walletAddress, 'unstake_request', staker.amount_staked, staker.stake_month, unstakeMonth, null, { requested_at: new Date().toISOString() })
+
   return data
 }
 
@@ -195,10 +238,22 @@ export const executeUnstake = async (walletAddress) => {
 
   const amountToReturn = staker.amount_staked
 
-  // Delete the staker record
+  // Log the unstake execution (preserve data in history)
+  await logStakingEvent(walletAddress, 'unstake_execute', amountToReturn, staker.stake_month, staker.unstake_month, null, {
+    unstake_requested_at: staker.unstake_requested_at,
+    total_rewards_claimed: staker.total_rewards_claimed,
+    last_claimed_month: staker.last_claimed_month,
+    original_stake_timestamp: staker.stake_timestamp
+  })
+
+  // Mark the staker record as unstaked (keep record, don't delete)
   const { error } = await supabase
     .from('stakers')
-    .delete()
+    .update({
+      unstake_executed_at: new Date().toISOString(),
+      status: 'unstaked',
+      updated_at: new Date().toISOString()
+    })
     .eq('wallet_address', walletAddress)
 
   if (error) throw error
