@@ -47,18 +47,27 @@ export const getPbotBalance = async (walletAddress) => {
   try {
     const publicKey = new PublicKey(walletAddress)
 
-    // Use getParsedTokenAccountsByOwner - most reliable method
-    const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+    // Try Token-2022 program first (pump.fun tokens use Token-2022)
+    let tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
       mint: PBOT_MINT
-    })
+    }, { programId: TOKEN_2022_PROGRAM_ID })
 
-    console.log('[PBOT BALANCE] Token accounts found:', tokenAccounts.value.length)
+    console.log('[PBOT BALANCE] Token-2022 accounts found:', tokenAccounts.value.length)
+
+    // Fallback to standard SPL Token program if no Token-2022 accounts found
+    if (tokenAccounts.value.length === 0) {
+      console.log('[PBOT BALANCE] No Token-2022 accounts, trying standard SPL Token program...')
+      tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+        mint: PBOT_MINT
+      }, { programId: TOKEN_PROGRAM_ID })
+      console.log('[PBOT BALANCE] SPL Token accounts found:', tokenAccounts.value.length)
+    }
 
     if (tokenAccounts.value.length > 0) {
       const tokenData = tokenAccounts.value[0].account.data.parsed.info
-      const balance = tokenData.tokenAmount.uiAmount
+      const balance = tokenData.tokenAmount.uiAmount ?? 0
       console.log('[PBOT BALANCE] ✅ Balance:', balance)
-      return balance || 0
+      return balance
     }
 
     // No token account found

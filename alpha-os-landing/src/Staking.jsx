@@ -195,7 +195,7 @@ function Staking() {
       await recordStake(walletAddress, transferResult.amount, transferResult.signature)
 
       // Refresh data (including new balance)
-      await fetchAllData()
+      await fetchAllData(walletAddress)
       setStakeAmount('')
 
       // Show success toast
@@ -226,7 +226,7 @@ function Staking() {
     setError(null)
     try {
       const result = await requestUnstake(walletAddress)
-      await fetchAllData()
+      await fetchAllData(walletAddress)
       setToast({
         type: 'success',
         message: `Unstake request submitted! You can execute unstake on ${result.unstake_month}-01.`
@@ -248,7 +248,7 @@ function Staking() {
     setError(null)
     try {
       const result = await executeUnstake(walletAddress)
-      await fetchAllData()
+      await fetchAllData(walletAddress)
       setToast({
         type: 'success',
         message: `Successfully unstaked ${formatTokens(result.amount / 1e6)} $PBOT!`
@@ -272,7 +272,7 @@ function Staking() {
       // Record the claim in database - this reserves the user's share
       // The treasury will automatically process SOL transfers for valid claims
       const result = await claimRewards(walletAddress, 'claimed')
-      await fetchAllData()
+      await fetchAllData(walletAddress)
       setToast({
         type: 'success',
         message: `Successfully claimed ${lamportsToSol(result.amount_sol)} SOL for ${result.month}! SOL will be transferred within 24 hours.`
