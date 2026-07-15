@@ -1,22 +1,20 @@
 import { supabase } from './supabase'
 
-// Helper: Log staking events to history table for audit trail
-const logStakingEvent = async (walletAddress, eventType, amount, stakeMonth = null, unstakeMonth = null, txSignature = null, metadata = null) => {
-  try {
-    await supabase.from('staking_history').insert({
-      wallet_address: walletAddress,
-      event_type: eventType,
-      amount: amount,
-      stake_month: stakeMonth,
-      unstake_month: unstakeMonth,
-      tx_signature: txSignature,
-      metadata: metadata
-    })
-    console.log(`[STAKING HISTORY] Logged ${eventType} for ${walletAddress}`)
-  } catch (e) {
-    console.error('[STAKING HISTORY] Failed to log event:', e)
-    // Don't throw - history logging should not break main flow
+// Helper: call one of the server-side staking API routes. Mutations to
+// `stakers` / `reward_claims` go through these (service_role, on-chain
+// verified where applicable) instead of writing with the anon key directly -
+// the anon key only has read access to these tables now.
+const callStakingApi = async (path, body) => {
+  const response = await fetch(path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+  const data = await response.json().catch(() => ({}))
+  if (!response.ok) {
+    throw new Error(data.error || `Request to ${path} failed`)
   }
+  return data
 }
 
 // Helper: Get current month in YYYY-MM format
@@ -124,149 +122,21 @@ export const getAllUserStakes = async (walletAddress) => {
   return data || []
 }
 
-// Record a new stake (called after verifying on-chain transfer)
+// Record a new stake (called after the on-chain transfer). The server
+// independently re-verifies the transfer on-chain before writing anything -
+// see api/stake.js.
 export const recordStake = async (walletAddress, amount, txSignature) => {
-  console.log('[RECORD STAKE] Wallet:', walletAddress, 'Amount:', amount, 'Tx:', txSignature)
-  const currentMonth = getCurrentMonth()
-
-  // Check if user already has a stake
-  const existing = await getUserStake(walletAddress)
-  console.log('[RECORD STAKE] Existing stake:', existing)
-
-  if (existing) {
-    // Add to existing stake
-    const { data, error } = await supabase
-      .from('stakers')
-      .update({
-        amount_staked: existing.amount_staked + amount,
-        updated_at: new Date().toISOString()
-      })
-      .eq('wallet_address', walletAddress)
-      .select()
-      .single()
-
-    if (error) throw error
-
-    // Try to update pool stats (optional - we calculate from stakers table anyway)
-    try {
-      await supabase.rpc('update_total_staked', { delta: amount })
-    } catch (e) {
-      console.log('RPC not available, stats will be calculated from stakers table')
-    }
-
-    // Log the stake event
-    await logStakingEvent(walletAddress, 'stake', amount, currentMonth, null, txSignature, { type: 'add_to_existing', previous_amount: existing.amount_staked })
-
-    return data
-  } else {
-    // Create new staker record
-    const { data, error } = await supabase
-      .from('stakers')
-      .insert({
-        wallet_address: walletAddress,
-        amount_staked: amount,
-        stake_month: currentMonth,
-        stake_timestamp: new Date().toISOString()
-      })
-      .select()
-      .single()
-
-    if (error) {
-      console.error('[RECORD STAKE] Error creating stake:', error)
-      throw error
-    }
-
-    console.log('[RECORD STAKE] Successfully created stake:', data)
-
-    // Try to update pool stats (optional - we calculate from stakers table anyway)
-    try {
-      await supabase.rpc('increment_staker_count')
-      await supabase.rpc('update_total_staked', { delta: amount })
-    } catch (e) {
-      console.log('[RECORD STAKE] RPC not available, stats will be calculated from stakers table')
-    }
-
-    // Log the stake event
-    await logStakingEvent(walletAddress, 'stake', amount, currentMonth, null, txSignature, { type: 'new_stake' })
-
-    return data
-  }
+  return callStakingApi('/api/stake', { walletAddress, amount, txSignature })
 }
 
 // Request unstake
 export const requestUnstake = async (walletAddress) => {
-  const currentMonth = getCurrentMonth()
-  const unstakeMonth = getNextMonth() // Can unstake next month
-
-  const staker = await getUserStake(walletAddress)
-  if (!staker) throw new Error('No stake found')
-
-  // Check if they staked in the current month (can't unstake same month)
-  if (staker.stake_month === currentMonth && !staker.unstake_requested_at) {
-    throw new Error('Cannot request unstake in the same month you staked')
-  }
-
-  const { data, error } = await supabase
-    .from('stakers')
-    .update({
-      unstake_requested_at: new Date().toISOString(),
-      unstake_month: unstakeMonth,
-      updated_at: new Date().toISOString()
-    })
-    .eq('wallet_address', walletAddress)
-    .select()
-    .single()
-
-  if (error) throw error
-
-  // Log the unstake request event
-  await logStakingEvent(walletAddress, 'unstake_request', staker.amount_staked, staker.stake_month, unstakeMonth, null, { requested_at: new Date().toISOString() })
-
-  return data
+  return callStakingApi('/api/unstake-request', { walletAddress })
 }
 
 // Execute unstake (returns tokens to user)
 export const executeUnstake = async (walletAddress) => {
-  const currentMonth = getCurrentMonth()
-  const staker = await getUserStake(walletAddress)
-
-  if (!staker) throw new Error('No stake found')
-  if (!staker.unstake_requested_at) throw new Error('No unstake request found')
-  if (staker.unstake_month !== currentMonth) {
-    throw new Error(`Cannot unstake until ${staker.unstake_month}`)
-  }
-
-  const amountToReturn = staker.amount_staked
-
-  // Log the unstake execution (preserve data in history)
-  await logStakingEvent(walletAddress, 'unstake_execute', amountToReturn, staker.stake_month, staker.unstake_month, null, {
-    unstake_requested_at: staker.unstake_requested_at,
-    total_rewards_claimed: staker.total_rewards_claimed,
-    last_claimed_month: staker.last_claimed_month,
-    original_stake_timestamp: staker.stake_timestamp
-  })
-
-  // Mark the staker record as unstaked (keep record, don't delete)
-  const { error } = await supabase
-    .from('stakers')
-    .update({
-      unstake_executed_at: new Date().toISOString(),
-      status: 'unstaked',
-      updated_at: new Date().toISOString()
-    })
-    .eq('wallet_address', walletAddress)
-
-  if (error) throw error
-
-  // Try to update pool stats (optional - we calculate from stakers table anyway)
-  try {
-    await supabase.rpc('decrement_staker_count')
-    await supabase.rpc('update_total_staked', { delta: -amountToReturn })
-  } catch (e) {
-    console.log('RPC not available, stats will be calculated from stakers table')
-  }
-
-  return { amount: amountToReturn }
+  return callStakingApi('/api/unstake-execute', { walletAddress })
 }
 
 // Get claimable rewards for a user
@@ -335,41 +205,10 @@ export const getClaimableRewards = async (walletAddress) => {
   }
 }
 
-// Claim rewards
+// Claim rewards. Eligibility and amount are recomputed server-side from the
+// database - see api/claim-rewards.js - the client can't influence the payout.
 export const claimRewards = async (walletAddress, txSignature) => {
-  const claimable = await getClaimableRewards(walletAddress)
-
-  if (!claimable.eligible) {
-    throw new Error(claimable.reason || 'Not eligible for rewards')
-  }
-
-  // Record the claim
-  const { data, error } = await supabase
-    .from('reward_claims')
-    .insert({
-      wallet_address: walletAddress,
-      month: claimable.month,
-      amount_sol: claimable.amount,
-      claimed_at: new Date().toISOString(),
-      tx_signature: txSignature
-    })
-    .select()
-    .single()
-
-  if (error) throw error
-
-  // Update user's total claimed
-  const staker = await getUserStake(walletAddress)
-  await supabase
-    .from('stakers')
-    .update({
-      total_rewards_claimed: (staker.total_rewards_claimed || 0) + claimable.amount,
-      last_claimed_month: claimable.month,
-      updated_at: new Date().toISOString()
-    })
-    .eq('wallet_address', walletAddress)
-
-  return data
+  return callStakingApi('/api/claim-rewards', { walletAddress, txSignature })
 }
 
 // Get user's claim history

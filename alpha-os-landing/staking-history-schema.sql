@@ -32,9 +32,14 @@ ALTER TABLE staking_history ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Public read access to staking_history" ON staking_history
   FOR SELECT USING (true);
 
--- Policy: System can insert history records
-CREATE POLICY "System can insert staking_history" ON staking_history
-  FOR INSERT WITH CHECK (true);
+-- staking_history writes now happen exclusively through the service_role
+-- key inside api/stake.js, api/unstake-request.js and api/unstake-execute.js.
+-- service_role bypasses RLS, so no anon/authenticated write policy is
+-- defined here - anon INSERT must stay denied by default.
+--
+-- If a policy named "System can insert staking_history" already exists
+-- from a previous deploy, drop it:
+-- DROP POLICY IF EXISTS "System can insert staking_history" ON staking_history;
 
 -- =====================================================
 -- USAGE EXAMPLES:

@@ -1,5 +1,13 @@
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'
 import { getAssociatedTokenAddress, createTransferInstruction, TOKEN_PROGRAM_ID, TOKEN_2022_PROGRAM_ID, getAccount, createAssociatedTokenAccountInstruction, getMint } from '@solana/spl-token'
+import {
+  PBOT_MINT_ADDRESS,
+  STAKING_POOL_ADDRESS_STR,
+  FEE_RECIPIENT_ADDRESS,
+  TREASURY_WALLET_ADDRESS,
+  STAKING_FEE_PERCENT,
+  PBOT_DECIMALS
+} from './stakingConstants'
 
 // Solana connection - using Helius RPC for reliable access
 const SOLANA_RPC = import.meta.env.VITE_SOLANA_RPC_URL
@@ -9,23 +17,19 @@ if (!SOLANA_RPC) {
 export const connection = new Connection(SOLANA_RPC || 'https://api.mainnet-beta.solana.com', 'confirmed')
 
 // $PBOT token mint address
-export const PBOT_MINT = new PublicKey('8aamVxABfTTTYNwhCi6PwJRUdxtixf8gPKkpt3Jmpump')
+export const PBOT_MINT = new PublicKey(PBOT_MINT_ADDRESS)
 
 // Staking pool address (where tokens are sent for staking)
-export const STAKING_POOL_ADDRESS = new PublicKey('EYvYCMoMd4UPUbuFHXzyQJxengGih9szJsbNtvNQb86S')
+export const STAKING_POOL_ADDRESS = new PublicKey(STAKING_POOL_ADDRESS_STR)
 
 // Fee recipient address (where staking fees are sent)
-export const FEE_RECIPIENT = new PublicKey('8aXc4dTWsxESP4FQGcqkb6tTHG6DwwkDXbHtWqwEeeVY')
-
-// Staking fee percentage
-export const STAKING_FEE_PERCENT = 4
+export const FEE_RECIPIENT = new PublicKey(FEE_RECIPIENT_ADDRESS)
 
 // Treasury wallet address (where SOL rewards are paid from)
 // This should be the same wallet that deposits SOL for rewards
-export const TREASURY_WALLET = new PublicKey('EYvYCMoMd4UPUbuFHXzyQJxengGih9szJsbNtvNQb86S')
+export const TREASURY_WALLET = new PublicKey(TREASURY_WALLET_ADDRESS)
 
-// Token decimals (pump.fun tokens typically use 6 decimals)
-export const PBOT_DECIMALS = 6
+export { STAKING_FEE_PERCENT, PBOT_DECIMALS }
 
 // Get user's SOL balance
 export const getSolBalance = async (walletAddress) => {

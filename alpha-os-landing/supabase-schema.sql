@@ -128,29 +128,34 @@ CREATE POLICY "Public read access to pool_stats" ON pool_stats
 CREATE POLICY "Public read access to monthly_rewards" ON monthly_rewards
   FOR SELECT USING (true);
 
--- Policy: Users can read their own staker record
-CREATE POLICY "Users can read own staker data" ON stakers
+-- Policy: Public read access to stakers (leaderboard / balance display)
+CREATE POLICY "Public read access to stakers" ON stakers
   FOR SELECT USING (true);
 
--- Policy: Users can insert their own staker record
-CREATE POLICY "Users can insert own staker data" ON stakers
-  FOR INSERT WITH CHECK (true);
-
--- Policy: Users can update their own staker record
-CREATE POLICY "Users can update own staker data" ON stakers
-  FOR UPDATE USING (true);
-
--- Policy: Users can delete their own staker record
-CREATE POLICY "Users can delete own staker data" ON stakers
-  FOR DELETE USING (true);
+-- All stakers writes (insert/update/delete) now happen exclusively through
+-- the service_role key inside api/stake.js, api/unstake-request.js and
+-- api/unstake-execute.js, which independently verify the on-chain transfer
+-- before writing. service_role bypasses RLS, so no anon/authenticated
+-- write policy is defined here - anon INSERT/UPDATE/DELETE on stakers must
+-- stay denied by default.
+--
+-- If policies named "Users can insert/update/delete own staker data"
+-- already exist from a previous deploy, drop them:
+-- DROP POLICY IF EXISTS "Users can insert own staker data" ON stakers;
+-- DROP POLICY IF EXISTS "Users can update own staker data" ON stakers;
+-- DROP POLICY IF EXISTS "Users can delete own staker data" ON stakers;
 
 -- Policy: Users can read their own claims
 CREATE POLICY "Users can read own claims" ON reward_claims
   FOR SELECT USING (true);
 
--- Policy: Users can insert their own claims
-CREATE POLICY "Users can insert own claims" ON reward_claims
-  FOR INSERT WITH CHECK (true);
+-- reward_claims writes also now go exclusively through service_role in
+-- api/claim-rewards.js (amount/eligibility recomputed server-side, never
+-- trusted from the client). No anon INSERT policy is defined here.
+--
+-- If a policy named "Users can insert own claims" already exists from a
+-- previous deploy, drop it:
+-- DROP POLICY IF EXISTS "Users can insert own claims" ON reward_claims;
 
 -- =====================================================
 -- SETUP COMPLETE!
