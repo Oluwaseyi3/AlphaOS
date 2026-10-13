@@ -25,7 +25,16 @@ async function detectTokenProgram() {
 // to recordStake) of PBOT from `walletAddress`'s token account into the
 // staking pool's token account. Throws if anything doesn't match.
 export async function verifyStakeTransfer(signature, walletAddress, expectedRawAmount) {
-  const tx = await connection.getParsedTransaction(signature, { maxSupportedTransactionVersion: 0 })
+  // The RPC node may not have indexed the transaction yet right after the
+  // client confirms it, so retry a few times before giving up.
+  let tx = null
+  for (let attempt = 0; attempt < 6 && !tx; attempt++) {
+    if (attempt > 0) await new Promise((r) => setTimeout(r, 1500))
+    tx = await connection.getParsedTransaction(signature, {
+      commitment: 'confirmed',
+      maxSupportedTransactionVersion: 0
+    })
+  }
   if (!tx) throw new Error('Transaction not found or not yet confirmed')
   if (tx.meta?.err) throw new Error('Transaction failed on-chain')
 
